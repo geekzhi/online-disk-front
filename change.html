@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更换新密码</title>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/axios.min.js"></script>
+    <script src="js/lib/qs.js"></script>
+    <script src="js/page/config.js"></script>
+    <script>
+        $(function(){
+            var p = location.search;
+            var id = p.split("=")[1];
+            $('#change-pass').click(function () {
+                axios.post("/changePass", Qs.stringify({"id" : id, "newPass" : $('#new-pass').val()})).then(function (value) {
+                    alert(value.data.msg);
+                })
+            });
+        })
+    </script>
+</head>
+
+<body>
+    新密码：<input type="text" id="new-pass" />
+    <button id="change-pass">提交</button>
+</body>
+</html>

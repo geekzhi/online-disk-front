@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>忘记密码</title>
+
+
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/lib/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+		<script src="js/lib/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+	<body class="style-3">
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-4 col-md-push-8">
+					
+
+					<!-- Start Sign In Form -->
+					<form class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+						<h2>找回密码</h2>
+						<div id="note" class="form-group" hidden>
+							<div id="msg" class="alert alert-warning" role="alert"></div>
+						</div>
+						<div onclick="hide()" class="form-group">
+							<label for="email" class="sr-only">Email</label>
+							<input type="email" class="form-control" id="email" placeholder="邮箱" autocomplete="off">
+						</div>
+						<div onclick="hide()" class="form-group">
+							<p><a href="login.html">登录</a> or <a href="register.html">注册</a></p>
+						</div>
+						<div class="form-group">
+							<input type="button" value="发送邮件" id="forgot" class="btn btn-primary">
+						</div>
+					</form>
+					<!-- END Sign In Form -->
+
+				</div>
+			</div>
+
+		</div>
+	
+	<!-- jQuery -->
+	<script src="js/lib/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/lib/bootstrap.min.js"></script>
+	<!-- Placeholder -->
+	<script src="js/lib/jquery.placeholder.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/lib/jquery.waypoints.min.js"></script>
+	<!-- Main JS -->
+	<script src="js/lib/main.js"></script>
+
+		<script src="js/lib/axios.min.js"></script>
+        <script src="js/lib/qs.js"></script>
+		<script src="js/page/config.js"></script>
+		<script src="js/page/forgot.js"></script>
+
+	</body>
+</html>
+

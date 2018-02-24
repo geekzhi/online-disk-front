@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人主页</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="jumbotron">
+                <a href="login.html">首页</a>
+                <a id="logout"> 登出</a>
+                <p id="username"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+            <div class="panel-group" id="option-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title" data-toggle="collapse" data-parent="#option-1" href="#function-1">个人信息</a>
+                    </div>
+                    <div id="function-1" class="panel-collapse in">
+                        <div class="panel-body">
+                            <a href="#upload" data-toggle="tab">
+                                上传
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <a href="#pic" data-toggle="tab">
+                                图片
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <a href="#video" data-toggle="tab">
+                                视频
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#option-1" href="#function-2">选项卡2</a>
+                    </div>
+                    <div id="function-2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            功能1
+                        </div>
+                        <div class="panel-body">
+                            功能2
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 column">
+
+
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="upload">
+                    <iframe src="upload.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                </div>
+                <div class="tab-pane fade" id="pic">
+                    <iframe src="pic.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                </div>
+                <div class="tab-pane fade" id="video">
+                    <iframe src="video.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/lib/vue.min.js"></script>
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script src="js/page/my.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ckplayer</title>
+		
+		<style type="text/css">body{margin:0;padding:0px;font-family:"Microsoft YaHei",YaHei,"微软雅黑",SimHei,"黑体";font-size:14px}</style>
+
+	</head>
+
+	<body>
+		<script type="text/javascript" src="js/lib/ckplayer.js"></script>
+		<div id="video" style="width: 50%; height: 400px;"></div>
+		<script type="text/javascript">
+
+			ck("#video","http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4");
+
+			function ck(con, videoPath){
+                var videoObject = {
+                    container: con, //容器的ID或className
+                    variable: 'player',//播放函数名称
+                    poster:'images/poster.jpg',//封面图片
+                    video: videoPath
+                };
+                var player = new ckplayer(videoObject);
+			}
+		</script>
+		<div id="aa"></div>
+	</body>
+
+</html>
