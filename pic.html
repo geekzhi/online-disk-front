@@ -16,7 +16,10 @@
 <br>
     <div id="pic">
         <ul >
-            <li class="col-sm-4" v-for="pic in picList"><img class="img-responsive thumbnail" :src="pic.path"/></li>
+            <li class="col-sm-4" v-for="pic in picList">
+                <img class="img-responsive thumbnail" :src="pic.path"/>
+                <div class="caption"><h4> {{ pic.name }}</h4></div>
+            </li>
         </ul>
     </div>
 </body>
