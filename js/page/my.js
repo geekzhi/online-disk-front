@@ -15,5 +15,9 @@ $(function () {
             location.reload();
         });
     });
+
+    $('#pic-tag').click(function () {
+        $('#pic-frame').attr('src', $('#pic-frame').attr('src'));
+    })
 });
 
