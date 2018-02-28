@@ -43,7 +43,7 @@
             $('#file-zh').fileinput({
                 theme: 'fa',
                 language: 'zh',
-                uploadUrl: 'http://localhost:8080/file/upload',
+                uploadUrl: 'http://106.15.183.161:8080/file/upload',
                 allowedFileExtensions: ['jpg', 'png', 'gif'],
                 uploadExtraData: {"token":(sessionStorage.getItem("Authorization") == null)?localStorage.getItem("Authorization"):sessionStorage.getItem("Authorization")}
             });
