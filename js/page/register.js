@@ -1,4 +1,12 @@
 $(function () {
+    $('#code').keydown(function (event) {
+        var key = event.keyCode;
+        if(((key>=48 && key<=57) && ($('#code').val().length < 4)) || key == 8){
+
+        }else{
+            event.preventDefault();
+        }
+    })
     $(':input').keydown(function (event) {
         if(event.keyCode == 13) {
             $('#login').click();

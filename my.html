@@ -19,10 +19,19 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <div class="jumbotron">
-                <a href="login.html">首页</a>
-                <a id="logout"> 登出</a>
-                <p id="username"></p>
+
+            <div class="jumbotron row" id="user-jum">
+                <ul class="left-ul">
+
+                  <li><p href="login.html">首页</p></li>
+                  <li><p id="logout"> 登出</p></li>
+
+                </ul>
+                <ul class="right-ul">
+                    <li><p style="background: orange;border-radius:30px;">&nbsp;&nbsp;会员中心&nbsp;&nbsp;</p></li>
+                    <li><p id="username" style="font-size:30px;"></p></li>
+                    <li><img src="static/3ce5f20ddc624681834fe9f100659d47.png" class="img-circle"/></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -31,7 +40,7 @@
             <div class="panel-group" id="option-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a class="panel-title" data-toggle="collapse" data-parent="#option-1" href="#function-1">个人信息</a>
+                        <a class="panel-title" data-toggle="collapse" data-parent="#option-1" href="#function-1">功能</a>
                     </div>
                     <div id="function-1" class="panel-collapse in">
                         <div class="panel-body">
@@ -54,14 +63,16 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#option-1" href="#function-2">选项卡2</a>
+                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#option-1" href="#function-2">个人信息</a>
                     </div>
                     <div id="function-2" class="panel-collapse collapse">
                         <div class="panel-body">
-                            功能1
+                            个人资料
                         </div>
                         <div class="panel-body">
-                            功能2
+                            <a href="#use" data-toggle="tab">
+                               存储情况
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -80,7 +91,15 @@
                 <div class="tab-pane fade" id="video">
                     <iframe src="video.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
                 </div>
-
+                <div class="tab-pane fade" id="use">
+                    <div class="progress progress-striped active">
+                        <div id="use-bar" class="progress-bar" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 80%;">
+                        </div>
+                    </div>
+                    <p id="use-font"></p>
+                </div>
             </div>
 
         </div>
