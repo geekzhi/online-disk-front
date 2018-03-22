@@ -1,5 +1,5 @@
 $(function () {
-    axios.post('/user/username').then(function (value) {
+    axios.post('/user/userInfo').then(function (value) {
         if (!(value.data == '')) {
             location.href = 'my.html';
         }
@@ -9,6 +9,8 @@ $(function () {
             $('#login-msg').html("请补全信息");
             $('#wrong').show();
         } else {
+            $('#login-msg').html("登录中，请稍后。。。");
+            $('#wrong').show();
             axios.post("/login", Qs.stringify({
                 "name": $('#name').val(),
                 "pass": $('#pass').val(),

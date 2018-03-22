@@ -1,3 +1,26 @@
 a:hover{
     cursor: pointer;
 }
+.left-ul li{
+    float:left;
+    margin-left: 10px;
+}
+.right-ul li{
+    float:right;
+    margin-right: 10px;
+}
+ul{
+    list-style: none;
+
+}
+img{
+    width: 40px;
+    height: 40px;
+}
+/*.hover-pointer {*/
+    /*cursor: pointer;*/
+/*}*/
+p:hover {
+    cursor:pointer;
+    color:gray;
+}
