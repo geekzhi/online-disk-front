@@ -140,7 +140,7 @@ $(function () {
         // showUpload: false,
         elErrorContainer: '#kartik-file-errors',
         allowedFileExtensions: ["jpg", "png", "gif"],
-        uploadUrl: 'http://localhost:8080/file/upload',
+        uploadUrl: 'http://106.15.183.161:8080/file/upload',
         uploadExtraData: function () {
             return batch;
         }
