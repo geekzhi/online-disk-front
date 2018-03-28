@@ -30,7 +30,7 @@
                 <ul class="right-ul">
                     <li><p style="background: orange;border-radius:30px;">&nbsp;&nbsp;会员中心&nbsp;&nbsp;</p></li>
                     <li><p id="username" style="font-size:30px;"></p></li>
-                    <li><img src="static/3ce5f20ddc624681834fe9f100659d47.png" class="img-circle"/></li>
+                    <li>img</li>
                 </ul>
             </div>
         </div>
@@ -49,6 +49,10 @@
                             </a>
                         </div>
                         <div class="panel-body">
+                            <a id="file-tag" href="#file" data-toggle="tab">
+                                全部文件
+                            </a>
+                        </div><div class="panel-body">
                             <a id="pic-tag" href="#pic" data-toggle="tab">
                                 图片
                             </a>
@@ -84,6 +88,9 @@
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade in active" id="upload">
                     <iframe src="upload.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                </div>
+                <div class="tab-pane fade" id="file">
+                    <iframe id="file-frame" src="file.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
                 </div>
                 <div class="tab-pane fade" id="pic">
                     <iframe id="pic-frame" src="pic.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
