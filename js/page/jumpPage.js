@@ -1,5 +1,5 @@
 $(function () {
-    axios.post('/user/username').then(function (value) {
+    axios.post('/user/userInfo').then(function (value) {
         if ((value.data == '')) {
             location.href = 'login.html';
         }

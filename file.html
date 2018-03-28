@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File</title>
+    <link href="css/bootstrap.4.0.0.css" rel="stylesheet" type="text/css"/>
+    <link href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/file.css" rel="stylesheet" type="text/css"/>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="js/fileinput.js" type="text/javascript"></script>
+    <script src="js/locales/zh.js" type="text/javascript"></script>
+    <script src="themes/explorer-fa/theme.js" type="text/javascript"></script>
+    <script src="themes/fa/theme.js" type="text/javascript"></script>
+    <script src="js/lib/popper.min.js" type="text/javascript"></script>
+    <script src="js/lib/bootstrap.4.0.0.min.js" type="text/javascript"></script>
+    <script src="js/page/jumpPage.js"></script>
+</head>
+<body>
+<br>
+<div id="file" class="col-md-12">
+    <!-- Button trigger modal -->
+    <button type="button" id="uploadFile" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+        上传
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">上传文件</h5>
+                    <div hidden id="upper">{{ upperPath }}</div>
+                    <button type="button" @click="fileClose()" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="file-loading"/>
+                    <input id="input-upfile" name="files" type="file"  multiple/>
+                </div>
+                <div id="kartik-file-errors"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" class="btn btn-info" @click="newFolder()">新建文件夹</button>
+<br><br>
+<div class="row">
+    <ul>
+    <li><a class="acolor" href="javascript:void(0)" @click="goBackStepOne()">返回上一级</a></li>
+    <li>|</li>
+        <li><a href="javascript:void(0)" @click="allFile()">全部文件</a></li>
+    <li v-for="(jumpFile, index) in jumpFiles">
+        <i> > </i>
+        <a href="javascript:void(0)" @click="jumpFilePage(index)">{{ jumpFile }}</a>
+    </li>
+</ul>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>文件名</th>
+        <th>大小</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="file in fileList">
+        <td>
+
+            <i v-if="file.type == 'folder'" class="fa fa-folder"></i>
+            <i v-else-if="file.type == 'image'" class="fa fa-image"></i>
+            <i v-else-if="file.type == 'video'" class="fa fa-video-camera"></i>
+            <i v-else class="fa fa-file"></i>
+            <a class="acolor" @click="open(file.name, file.parentPath, file.type)" href="javaScript:void(0)">
+            {{ file.name }}
+            </a>
+        </td>
+        <td> {{ file.size }}</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+
+<script src="js/lib/vue.min.js"></script>
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script src="js/page/file.js"></script>
+
+</html>
