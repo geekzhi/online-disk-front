@@ -1,15 +1,30 @@
-.acolor{
-    color:black;
-    text-decoration:none;
+.acolor {
+    color: black;
+    text-decoration: none;
 }
-a:hover{
-    color:dodgerblue;
-    text-decoration:none;
+
+a:hover {
+    color: dodgerblue;
+    text-decoration: none;
 }
-li{
-    float:left;
+
+li {
+    float: left;
     margin-right: 10px;
 }
-ul{
+
+ul {
     list-style: none;
+}
+
+.yincang {
+    display: none
+}
+
+.line:hover .yincang {
+    display: block
+}
+
+.line:hover{
+    background-color:whitesmoke;
 }

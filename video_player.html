@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="js/lib/ckplayer.js"></script>
+</head>
+<body>
+<div id="video" class="col-md-offset-2 col-md-8"></div>
+<script type="text/javascript">
+    var path = sessionStorage.getItem("videopath");
+    var videoObject = {
+        container: '#video', //容器的ID或className
+        variable: 'player',//播放函数名称
+        flashplayer:false,
+        video: [//视频地址列表形式
+            // ['http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4', 'video/mp4', '中文标清', 0]
+            [path, 'video/mp4', '中文标清', 0]
+        ]
+    };
+    var player = new ckplayer(videoObject);
+</script>
+
+</body>
+</html>
