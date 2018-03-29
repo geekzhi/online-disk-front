@@ -3,7 +3,8 @@ new Vue({
     data: {
         fileList: [],
         upperPath: '',
-        jumpFiles: []
+        jumpFiles: [],
+        test:'13'
     },
     created: function () {
         var vm = this;
@@ -92,7 +93,7 @@ new Vue({
                     vm.jumpFiles[i] = aim[i];
                 }
                 vm.upperPath = '/' + aim.toString().replace(/,/g,"/");
-                var path = '/' + aim.toString().replace(",", "/");
+                var path = '/' + aim.toString().replace(/,/g,"/");
                 axios.post('/file/fileList/path', Qs.stringify({'parentPath': path})).then(function (value) {
                     // vm.upperPath = (parentPath == '/' ? '/' : path);
                     vm.fileList = [];
@@ -117,6 +118,10 @@ new Vue({
                     }
                 }
             });
+        },
+        video:function (name, path) {
+            sessionStorage.setItem("videopath", path);
+            window.open("video_player.html");
         }
     }
 });
@@ -139,7 +144,7 @@ $(function () {
         showPreview: false,
         // showUpload: false,
         elErrorContainer: '#kartik-file-errors',
-        allowedFileExtensions: ["jpg", "png", "gif"],
+        allowedFileExtensions: ["jpg", "png", "gif", "mp4"],
         uploadUrl: 'http://localhost:8080/file/upload',
         uploadExtraData: function () {
             return batch;

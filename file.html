@@ -8,6 +8,7 @@
     <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/file.css" rel="stylesheet" type="text/css"/>
+    <link href="css/lightbox.css" rel="stylesheet" type="text/css"/>
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/plugins/sortable.js" type="text/javascript"></script>
     <script src="js/fileinput.js" type="text/javascript"></script>
@@ -17,6 +18,7 @@
     <script src="js/lib/popper.min.js" type="text/javascript"></script>
     <script src="js/lib/bootstrap.4.0.0.min.js" type="text/javascript"></script>
     <script src="js/page/jumpPage.js"></script>
+    <script src="js/lib/lightbox.js"></script>
 </head>
 <body>
 <br>
@@ -38,14 +40,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="file-loading"/>
                     <input id="input-upfile" name="files" type="file"  multiple/>
                 </div>
                 <div id="kartik-file-errors"></div>
             </div>
         </div>
     </div>
-</div>
 
 
 <button type="button" class="btn btn-info" @click="newFolder()">新建文件夹</button>
@@ -59,28 +59,47 @@
         <i> > </i>
         <a href="javascript:void(0)" @click="jumpFilePage(index)">{{ jumpFile }}</a>
     </li>
+
 </ul>
 </div>
-<table class="table">
+<table class="table" style="table-layout:fixed" >
     <thead>
     <tr>
         <th>文件名</th>
+        <th></th>
         <th>大小</th>
     </tr>
     </thead>
     <tbody>
-    <tr v-for="file in fileList">
+    <tr class="line" v-for="file in fileList">
         <td>
-
             <i v-if="file.type == 'folder'" class="fa fa-folder"></i>
             <i v-else-if="file.type == 'image'" class="fa fa-image"></i>
             <i v-else-if="file.type == 'video'" class="fa fa-video-camera"></i>
             <i v-else class="fa fa-file"></i>
-            <a class="acolor" @click="open(file.name, file.parentPath, file.type)" href="javaScript:void(0)">
-            {{ file.name }}
+            <a v-if="file.type == 'folder'" class="acolor" @click="open(file.name, file.parentPath, file.type)" href="javaScript:void(0)">
+                {{ file.name }}
+            </a>
+            <a v-if="file.type == 'image'" class="acolor" :href="file.path" :data-title="file.name" data-lightbox="roadtrip">
+                {{ file.name }}
+            </a>
+            <a v-if="file.type == 'video'" class="acolor" href="javaScript:void(0)" @click="video(file.name, file.path)">
+                {{ file.name }}
             </a>
         </td>
-        <td> {{ file.size }}</td>
+        <td v-if="file.type == 'folder'">
+            <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
+        </td>
+        <td v-else>
+            <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
+            <span class="fa fa-cloud-download yincang" style="float:left">&nbsp;&nbsp;</span>
+            <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
+        </td>
+        <td>
+            <p v-if="file.size == null"></p>
+            <p v-else-if="file.size < 10*1024" >{{ file.size }}KB</p>
+            <p v-else>{{ file.size/1024 }}M</p>
+        </td>
     </tr>
     </tbody>
 </table>
