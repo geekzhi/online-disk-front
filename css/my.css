@@ -24,10 +24,7 @@ p:hover {
     color:gray;
 }
 .jumbotron {
-    background-image: url("../img/timg (1).jpeg");
-    /*color: ghostwhite;*/
+    background-image: url("../img/bgimg.jpeg");
+    color: ghostwhite;
 }
-body{
-    background-image: url("../img/timg (1).jpeg");
-    background-size:100%;
-}
+

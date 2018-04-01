@@ -80,10 +80,10 @@
             <a v-if="file.type == 'folder'" class="acolor" @click="open(file.name, file.parentPath, file.type)" href="javaScript:void(0)">
                 {{ file.name }}
             </a>
-            <a v-if="file.type == 'image'" class="acolor" :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name" data-lightbox="roadtrip">
+            <a v-else-if="file.type == 'image'" class="acolor" :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name" data-lightbox="roadtrip">
                 {{ file.name }}
             </a>
-            <a v-if="file.type == 'video'" class="acolor" href="javaScript:void(0)" @click="video(file.id)">
+            <a v-else-if="file.type == 'video'" class="acolor" href="javaScript:void(0)" @click="video(file.id)">
                 {{ file.name }}
             </a>
             <a v-else>
