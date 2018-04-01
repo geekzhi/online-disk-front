@@ -80,10 +80,13 @@
             <a v-if="file.type == 'folder'" class="acolor" @click="open(file.name, file.parentPath, file.type)" href="javaScript:void(0)">
                 {{ file.name }}
             </a>
-            <a v-if="file.type == 'image'" class="acolor" :href="file.path" :data-title="file.name" data-lightbox="roadtrip">
+            <a v-if="file.type == 'image'" class="acolor" :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name" data-lightbox="roadtrip">
                 {{ file.name }}
             </a>
-            <a v-if="file.type == 'video'" class="acolor" href="javaScript:void(0)" @click="video(file.name, file.path)">
+            <a v-if="file.type == 'video'" class="acolor" href="javaScript:void(0)" @click="video(file.id)">
+                {{ file.name }}
+            </a>
+            <a v-else>
                 {{ file.name }}
             </a>
         </td>
@@ -92,13 +95,16 @@
         </td>
         <td v-else>
             <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
-            <span class="fa fa-cloud-download yincang" style="float:left">&nbsp;&nbsp;</span>
+            <a :href="'/nginx/file/' + file.id + '?token=' + token" :download="file.name" class="acolor">
+                <span class="fa fa-cloud-download yincang" style="float:left">&nbsp;&nbsp;
+                </span>
+            </a>
             <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
         </td>
         <td>
             <p v-if="file.size == null"></p>
             <p v-else-if="file.size < 10*1024" >{{ file.size }}KB</p>
-            <p v-else>{{ file.size/1024 }}M</p>
+            <p v-else>{{ Math.round(file.size/1024) }}M</p>
         </td>
     </tr>
     </tbody>
