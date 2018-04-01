@@ -23,3 +23,11 @@ p:hover {
     cursor:pointer;
     color:gray;
 }
+.jumbotron {
+    background-image: url("../img/timg (1).jpeg");
+    /*color: ghostwhite;*/
+}
+body{
+    background-image: url("../img/timg (1).jpeg");
+    background-size:100%;
+}

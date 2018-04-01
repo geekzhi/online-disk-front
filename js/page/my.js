@@ -10,7 +10,7 @@ axios.post('/user/userInfo').then(function (value) {
         var scale = (value.data.data.use / value.data.data.size) * 100;
         var usewidth = scale + '%';
         $('#use-bar').css("width", usewidth);
-        $('#use-font').html(value.data.data.use + "G/" + value.data.data.size + "G")
+        $('#use-font').html(Math.round((value.data.data.use/(1024*1024))*100)/100 + "G/" + Math.round(value.data.data.size/(1024*1024)) + "G");
         if(scale >= 50) {
             if(scale >= 80) {
                 $("#use-bar").addClass("progress-bar-danger");
@@ -39,7 +39,6 @@ $(function () {
     });
     $('#file-tag').click(function () {
         $('#file-frame').attr('src', $('#file-frame').attr('src'));
-        console.log('123');
     })
      // $('#user-jum').css("color","orange");
     //  $('#user-jum').css("background","url('static/3ce5f20ddc624681834fe9f100659d47.png')")

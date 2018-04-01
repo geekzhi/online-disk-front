@@ -4,7 +4,7 @@ new Vue({
         fileList: [],
         upperPath: '',
         jumpFiles: [],
-        test:'13'
+        token:''
     },
     created: function () {
         var vm = this;
@@ -17,6 +17,7 @@ new Vue({
                 }
             }
         });
+        vm.token = (sessionStorage.getItem("Authorization") == null)?localStorage.getItem("Authorization"):sessionStorage.getItem("Authorization");
     },
     methods: {
         open: function (name, parentPath, type) {
@@ -119,8 +120,9 @@ new Vue({
                 }
             });
         },
-        video:function (name, path) {
-            sessionStorage.setItem("videopath", path);
+        video:function (id) {
+            var vm = this;
+            sessionStorage.setItem("videopath", '/nginx/file/' + id + '?token=' + vm.token);
             window.open("video_player.html");
         }
     }
