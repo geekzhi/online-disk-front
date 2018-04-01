@@ -1,18 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="css/lightbox.css" rel="stylesheet" type="text/css"/>
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/lightbox.js"></script>
-    </head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>ÐÂ½¨ÍøÒ³ 1</title>
+</head>
+
 <body>
 
-<div class="col-md-5">
-
-    <img src="static/1/2b6f3e2eac0e4f59b60d0c87fbf2f534.jpg"/>
-    <a href="static/1/2b6f3e2eac0e4f59b60d0c87fbf2f534.jpg" data-title="123123" data-lightbox="roadtrip">Image #2</a>
+<div align="center" style="position: absolute; width: 100px; height: 100px;
+z-index: 1; left:158px; top:17px" id="load">
+    <img src="http://sysimages.tq.cn/images/analysis_images/ajax-loader.gif" />&nbsp;loading...
 </div>
+<iframe style="visibility:hidden"
+        src="http://www.hao123.com"
+        onreadystatechange=stateChangeIE(this)
+        onload=stateChangeFirefox(this) name="callframe"
+        id="callframe" width="420" height="100"
+        frameborder="0" scrolling="no" marginheight="0"></iframe>
+<script>
+    //     function stateChangeIE(_frame)
+    //         {
+    //             if (_frame.readyState=="interactive")//state: loading ,interactive,   complete
+    //             {
+    //                 var loader = document.getElementById("load");
+    //                 loader.innerHTML      = "";
+    //                 loader.style.display = "none";
+    //                 _frame.style.visibility = "visible";
+    //             }
+    // }
+    function stateChangeFirefox(_frame)
+    {
+        var loader = document.getElementById("load");
+        loader.innerHTML      = "";
+        loader.style.display = "none";
+        _frame.style.visibility = "visible";
+    }
+
+</script>
 </body>
 </html>
