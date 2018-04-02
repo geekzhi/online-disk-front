@@ -47,6 +47,28 @@
         </div>
     </div>
 
+    <!--删除文件提示模态框-->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: aliceblue">
+                    <h7 class="modal-title" id="delete-title">确认删除</h7>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    确认要把所选文件放入回收站吗？
+                    删除的文件可在10天内通过回收站还原
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="delete_file()">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
 <button type="button" class="btn btn-info" @click="newFolder()">新建文件夹</button>
 <br><br>
@@ -91,7 +113,9 @@
             </a>
         </td>
         <td v-if="file.type == 'folder'">
-            <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
+            <a href="javascript:void(0)" @click="setDelete(file.id, file.type)" data-toggle="modal" data-target="#deleteModal" class="acolor">
+                <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
+            </a>
         </td>
         <td v-else>
             <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
@@ -99,7 +123,9 @@
                 <span class="fa fa-cloud-download yincang" style="float:left">&nbsp;&nbsp;
                 </span>
             </a>
-            <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
+            <a href="javascript:void(0)" @click="setDelete(file.id, file.type)"  data-toggle="modal" data-target="#deleteModal"  class="acolor">
+             <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
+            </a>
         </td>
         <td>
             <p v-if="file.size == null"></p>
