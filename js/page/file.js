@@ -4,7 +4,8 @@ new Vue({
         fileList: [],
         upperPath: '',
         jumpFiles: [],
-        token:''
+        token:'',
+        deleteFile:''
     },
     created: function () {
         var vm = this;
@@ -124,6 +125,18 @@ new Vue({
             var vm = this;
             sessionStorage.setItem("videopath", '/nginx/file/' + id + '?token=' + vm.token);
             window.open("video_player.html");
+        },
+        setDelete: function (id, type) {
+            this.deleteFile = id + ',' + type;
+        },
+        delete_file: function () {
+            var file = this.deleteFile.split(',');
+            axios.post('/file/delete', Qs.stringify({'id':file[0], 'type':file[1]})).then(function (value) {
+                if('0000' == value.data.code) {
+                    console.log('删除成功');
+                }
+                location.reload();
+            })
         }
     }
 });

@@ -6,6 +6,8 @@
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="js/lib/jquery.min.js"></script>
 
@@ -44,23 +46,34 @@
                         <a class="panel-title" data-toggle="collapse" data-parent="#option-1" href="#function-1">功能</a>
                     </div>
                     <div id="function-1" class="panel-collapse in">
-                        <div class="panel-body">
+                        <div class="panel-body" class="acolor">
+                            <i class="fa fa-upload"></i>
                             <a href="#upload" data-toggle="tab">
                                 上传
                             </a>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" class="acolor">
+                            <i class="fa fa-folder-o"></i>
                             <a id="file-tag" href="#file" data-toggle="tab">
                                 全部文件
                             </a>
-                        </div><div class="panel-body">
+                        </div>
+                        <div class="panel-body" class="acolor">
+                        <i class="fa fa-picture-o"></i>
                             <a id="pic-tag" href="#pic" data-toggle="tab">
                                 图片
                             </a>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" class="acolor">
+                            <i class="fa fa-file-video-o"></i>
                             <a href="#video" data-toggle="tab">
                                 视频
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <i class="fa fa-trash-o"></i>
+                            <a href="#trash" data-toggle="tab" class="acolor">
+                                回收站
                             </a>
                         </div>
                     </div>
@@ -74,7 +87,7 @@
                         <div class="panel-body">
                             个人资料
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" onclick="fileload()">
                             <a href="#use" data-toggle="tab">
                                存储情况
                             </a>
@@ -102,6 +115,9 @@
                     <iframe  onload="fileload()" id="pic-frame" src="#" class="panel panel-default" style="width:100%; height:500px"></iframe>
                 </div>
                 <div class="tab-pane fade" id="video">
+                    <iframe  onload="fileload()" src="#" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                </div>
+                <div class="tab-pane fade" id="trash">
                     <iframe  onload="fileload()" src="#" class="panel panel-default" style="width:100%; height:500px"></iframe>
                 </div>
                 <div class="tab-pane fade" id="use">

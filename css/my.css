@@ -1,5 +1,7 @@
 a:hover{
     cursor: pointer;
+    color: dodgerblue;
+    text-decoration: none;
 }
 .left-ul li{
     float:left;
@@ -25,6 +27,11 @@ p:hover {
 }
 .jumbotron {
     background-image: url("../img/bgimg.jpeg");
+    background-size: 100%;
     color: ghostwhite;
+}
+.acolor {
+    color: black;
+    text-decoration: none;
 }
 
