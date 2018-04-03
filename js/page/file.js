@@ -11,7 +11,6 @@ new Vue({
         var vm = this;
         axios.post('/file/fileList/path', Qs.stringify({'parentPath': 'root'})).then(function (value) {
             vm.upperPath = '/';
-            console.log(value.data);
             if (!(value.data == '')) {
                 for (var i = 0; i < value.data.data.length; i++) {
                     vm.fileList.push(value.data.data[i]);
