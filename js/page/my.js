@@ -93,6 +93,8 @@ axios.post('/user/userInfo').then(function (value) {
 
 $(function () {
 
+    $("[data-toggle='tooltip']").tooltip();
+
     $('#logout').click(function () {
         axios.get("/user/logout").then(function (value) {
             alert(value.data.msg);
@@ -100,18 +102,6 @@ $(function () {
         });
     });
 
-    // $('#pic-tag').click(function () {
-    //     $('#loading').show();
-    //     $('#myTabContent').hide();
-    //     $('#pic-frame').attr('src', $('#pic-frame').attr('src'));
-    // });
-    // $('#file-tag').click(function () {
-    //     $('#loading').show();
-    //     $('#myTabContent').hide();
-    //     $('#file-frame').attr('src', $('#file-frame').attr('src'));
-    // })
-    // $('#user-jum').css("color","orange");
-    //  $('#user-jum').css("background","url('static/3ce5f20ddc624681834fe9f100659d47.png')")
 
 });
 

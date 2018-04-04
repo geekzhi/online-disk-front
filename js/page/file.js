@@ -5,7 +5,13 @@ new Vue({
         upperPath: '',
         jumpFiles: [],
         token:'',
-        deleteFile:''
+        deleteFile:'',
+        renameId: '',
+        renameType: '',
+        newName: '',
+        show: false,
+        noticeMess: '',
+        suffixFolder: []
     },
     created: function () {
         var vm = this;
@@ -20,12 +26,13 @@ new Vue({
         vm.token = (sessionStorage.getItem("Authorization") == null)?localStorage.getItem("Authorization"):sessionStorage.getItem("Authorization");
     },
     methods: {
-        open: function (name, parentPath, type) {
+        open: function (name, parentPath, type, suffixName) {
             if ('folder' == type) {
                 var vm = this;
                 var path = parentPath == '/' ? ('/' + name) : (parentPath + '/' + name);
                 vm.upperPath = path;
                 vm.jumpFiles = path.split('/').splice(1);
+                vm.suffixFolder.push(suffixName);
                 axios.post('/file/fileList/path', Qs.stringify({'parentPath': path})).then(function (value) {
                     // vm.upperPath = (parentPath == '/' ? '/' : path);
                     vm.fileList = [];
@@ -58,6 +65,7 @@ new Vue({
             axios.post('/file/fileList/path', Qs.stringify({'parentPath': n})).then(function (value) {
                 vm.upperPath = n;
                 vm.jumpFiles = n.split('/').splice(1);
+                vm.suffixFolder.pop();
                 vm.fileList = [];
                 if (!(value.data == '')) {
                     for (var i = 0; i < value.data.data.length; i++) {
@@ -93,8 +101,8 @@ new Vue({
                 for (var i = 0; i < aim.length; i++) {
                     vm.jumpFiles[i] = aim[i];
                 }
-                vm.upperPath = '/' + aim.toString().replace(/,/g,"/");
-                var path = '/' + aim.toString().replace(/,/g,"/");
+                vm.upperPath = '/' + aim.toString().replace(/,/g, "/");
+                var path = '/' + aim.toString().replace(/,/g, "/");
                 axios.post('/file/fileList/path', Qs.stringify({'parentPath': path})).then(function (value) {
                     // vm.upperPath = (parentPath == '/' ? '/' : path);
                     vm.fileList = [];
@@ -104,7 +112,11 @@ new Vue({
                         }
                     }
                 });
+                for (var i = 0; i < vm.suffixFolder.length - index; i++) {
+                    vm.suffixFolder.pop();
+                }
             }
+
         },
         allFile: function () {
             location.reload();
@@ -136,16 +148,31 @@ new Vue({
                 }
                 location.reload();
             })
+        },
+        setRename: function (id, type) {
+            this.renameId = id;
+            this.renameType = type;
+        },
+        rename: function () {
+            var vm = this;
+            vm.show = false;
+            console.log(vm.renameId + '  ' + vm.newName + '  ' + vm.renameType);
+            axios.put('/file/' + vm.renameId + '/' + vm.newName + '/' + vm.renameType).then(function (value) {
+                vm.noticeMess = value.data.msg;
+                vm.show = true;
+                if('0000' == value.data.code){
+                    location.reload();
+                }
+            })
+        },
+        hideMess: function () {
+            this.show = false;
         }
     }
 });
 $(function () {
-    // var uploadPath = '';
-    // $('#uploadFile').click(function () {
-    //     uploadPath = $('#upper').html();
-    //     sessionStorage.setItem("uploadPath", uploadPath);
-    //     console.log(uploadPath);
-    // });
+
+    $("[data-toggle='tooltip']").tooltip();
     var batch;
     $('#input-upfile').on('filepreajax', function(event, previewId, index) {
         batch = {
@@ -164,4 +191,6 @@ $(function () {
             return batch;
         }
     });
+
+
 });
