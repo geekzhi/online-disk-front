@@ -70,6 +70,34 @@
         </div><!-- /.modal -->
     </div>
 
+    <!--更改文件名提示模态框-->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modify-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: aliceblue">
+                    <h7 class="modal-title" id="modify-title">更改文件名</h7>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <form class="form">
+                <div class="modal-body">
+                    请输入需要更改的名称：
+                    <input type="text" class="form-group" v-model="newName" @click="hideMess"/>
+                </div>
+                <div id="wrong" class="form-group col-md-8" v-show="show">
+                    <div class="alert alert-danger" role="alert"> {{ noticeMess }}</div>
+                </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="rename()">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
 <button type="button" class="btn btn-info" @click="newFolder()">新建文件夹</button>
 <br><br>
 <div class="row">
@@ -79,7 +107,7 @@
         <li><a href="javascript:void(0)" @click="allFile()">全部文件</a></li>
     <li v-for="(jumpFile, index) in jumpFiles">
         <i> > </i>
-        <a href="javascript:void(0)" @click="jumpFilePage(index)">{{ jumpFile }}</a>
+        <a href="javascript:void(0)" @click="jumpFilePage(index)">{{ suffixFolder[index] }}</a>
     </li>
 
 </ul>
@@ -99,8 +127,8 @@
             <i v-else-if="file.type == 'image'" class="fa fa-image"></i>
             <i v-else-if="file.type == 'video'" class="fa fa-video-camera"></i>
             <i v-else class="fa fa-file"></i>
-            <a v-if="file.type == 'folder'" class="acolor" @click="open(file.name, file.parentPath, file.type)" href="javaScript:void(0)">
-                {{ file.name }}
+            <a v-if="file.type == 'folder'" class="acolor" @click="open(file.name, file.parentPath, file.type, file.suffixName)" href="javaScript:void(0)">
+                {{ file.suffixName }}
             </a>
             <a v-else-if="file.type == 'image'" class="acolor" :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name" data-lightbox="roadtrip">
                 {{ file.name }}
@@ -113,17 +141,23 @@
             </a>
         </td>
         <td v-if="file.type == 'folder'">
-            <a href="javascript:void(0)" @click="setDelete(file.id, file.type)" data-toggle="modal" data-target="#deleteModal" class="acolor">
+            <a href="javascript:void(0)" class="acolor" @click="setRename(file.id, file.type)">
+                <span class="fa fa-refresh yincang" title="重命名" style="float:left" data-toggle="modal" data-target="#modifyModal"> &nbsp;&nbsp;</span>
+            </a>
+            <a href="javascript:void(0)" title="删除" @click="setDelete(file.id, file.type)" data-toggle="modal" data-target="#deleteModal" class="acolor">
                 <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
             </a>
         </td>
         <td v-else>
             <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
-            <a :href="'/nginx/file/' + file.id + '?token=' + token" :download="file.name" class="acolor">
+            <a href="javascript:void(0)" class="acolor" @click="setRename(file.id, file.type)">
+                <span class="fa fa-refresh yincang" title="重命名" style="float:left" data-toggle="modal" data-target="#modifyModal"> &nbsp;&nbsp;</span>
+            </a>
+            <a title="下载" :href="'/nginx/file/' + file.id + '?token=' + token" :download="file.name" class="acolor">
                 <span class="fa fa-cloud-download yincang" style="float:left">&nbsp;&nbsp;
                 </span>
             </a>
-            <a href="javascript:void(0)" @click="setDelete(file.id, file.type)"  data-toggle="modal" data-target="#deleteModal"  class="acolor">
+            <a href="javascript:void(0)" title="删除" @click="setDelete(file.id, file.type)"  data-toggle="modal" data-target="#deleteModal"  class="acolor">
              <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
             </a>
         </td>

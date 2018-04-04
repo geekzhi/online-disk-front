@@ -124,7 +124,7 @@
                             </tr>
                             </thread>
                             <tbody>
-                            <tr v-for="file in fileList" style="font-size: 5%;font-family:华文细黑;">
+                            <tr v-for="file in fileList" style="font-family:华文细黑;">
                                 <th>
                                     <a v-if="file.type == 'image'" class="acolor" :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name" data-lightbox="roadtrip">
                                         {{ file.name }}
