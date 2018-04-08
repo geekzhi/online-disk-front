@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>个人主页</title>
@@ -20,7 +20,6 @@
 
     <script src="js/lib/lightbox.js"></script>
 
-
 </head>
 <body>
 <div class="container" id="main">
@@ -30,13 +29,15 @@
             <div class="jumbotron row" id="user-jum">
                 <ul class="left-ul">
 
-                  <li><p href="login.html">首页</p></li>
-                  <li><p id="logout"> 登出</p></li>
+                    <li><p class="top-front"><a href="login.html" style="color:white">首页</a> </p></li>
+                    <li><p class="top-front" id="logout"> 登出</p></li>
 
                 </ul>
                 <ul class="right-ul">
-                    <li><button class="btn btn-warning btn-sm">会员中心</button></li>
-                    <li><p id="username" style="font-size:25px;"></p></li>
+                    <li>
+                        <button class="btn btn-warning btn-sm">会员中心</button>
+                    </li>
+                    <li><p  class="top-front" id="username" style="font-size:25px;"></p></li>
                     <li></li>
                 </ul>
             </div>
@@ -63,8 +64,9 @@
                             </a>
                         </div>
                         <div class="panel-body" class="acolor">
-                        <i class="fa fa-picture-o"></i>
-                            <a id="pic-tag" href="#kinds" data-toggle="tab" @click="getFileList('image')" class="acolor">
+                            <i class="fa fa-picture-o"></i>
+                            <a id="pic-tag" href="#kinds" data-toggle="tab" @click="getFileList('image')"
+                               class="acolor">
                                 图片
                             </a>
                         </div>
@@ -85,7 +87,8 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#option-1" href="#function-2">个人信息</a>
+                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#option-1"
+                           href="#function-2">个人信息</a>
                     </div>
                     <div id="function-2" class="panel-collapse collapse">
                         <div class="panel-body">
@@ -93,7 +96,7 @@
                         </div>
                         <div class="panel-body" onclick="fileload()">
                             <a href="#use" data-toggle="tab">
-                               存储情况
+                                存储情况
                             </a>
                         </div>
                     </div>
@@ -102,7 +105,7 @@
         </div>
         <div class="col-md-10 column">
 
-            <div style="margin: auto; text-align: center;" id="loading" >
+            <div style="margin: auto; text-align: center;" id="loading">
                 <br><br><br><br><br><br><br><br><br><br>
                 <img src="img/2.gif" style="height: 10%; width: 10%"/>
             </div>
@@ -110,40 +113,45 @@
             <div hidden id="myTabContent" class="tab-content">
 
                 <div class="tab-pane fade in active" id="upload">
-                    <iframe  onload="fileload()" src="upload.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                    <iframe onload="fileload()" src="upload.html" class="panel panel-default"
+                            style="width:100%; height:500px"></iframe>
                 </div>
                 <div class="tab-pane fade" id="file">
-                    <iframe onload="fileload()" id="file-frame" src="file.html" class="panel panel-default" style="width:100%; height:500px"></iframe>
+                    <iframe onload="fileload()" id="file-frame" src="file.html" class="panel panel-default"
+                            style="width:100%; height:500px"></iframe>
                 </div>
                 <div class="tab-pane fade" id="kinds">
-                        <table class="table table-hover">
-                            <thread>
+                    <table class="table table-hover">
+                        <thread>
                             <tr>
                                 <th><h4>文件名</h4></th>
                                 <th><h4>大小</h4></th>
                             </tr>
-                            </thread>
-                            <tbody>
-                            <tr v-for="file in fileList" style="font-family:华文细黑;">
-                                <th>
-                                    <a v-if="file.type == 'image'" class="acolor" :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name" data-lightbox="roadtrip">
-                                        {{ file.name }}
-                                    </a>
-                                    <a v-else-if="file.type == 'video'" class="acolor" href="javaScript:void(0)" @click="video(file.id)">
-                                        {{ file.name }}
-                                    </a>
-                                    <a v-else>
-                                        {{ file.name }}
-                                    </a>
-                                </th>
-                                <th>
-                                    <p v-if="file.size == null"></p>
-                                    <p v-else-if="file.size < 10*1024" >{{ file.size }}KB</p>
-                                    <p v-else>{{ Math.round(file.size/1024) }}M</p>
-                                </th>
-                            </tr>
-                            </tbody>
-                        </table>
+                        </thread>
+                        <tbody>
+                        <tr v-for="file in fileList" style="font-family:华文细黑;">
+                            <th>
+                                <a v-if="file.type == 'image'" class="acolor"
+                                   :href="'/nginx/file/' + file.id + '?token=' + token" :data-title="file.name"
+                                   data-lightbox="roadtrip">
+                                    {{ file.name }}
+                                </a>
+                                <a v-else-if="file.type == 'video'" class="acolor" href="javaScript:void(0)"
+                                   @click="video(file.id)">
+                                    {{ file.name }}
+                                </a>
+                                <a v-else>
+                                    {{ file.name }}
+                                </a>
+                            </th>
+                            <th>
+                                <p v-if="file.size == null"></p>
+                                <p v-else-if="file.size < 10*1024">{{ file.size }}KB</p>
+                                <p v-else>{{ Math.round(file.size/1024) }}M</p>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
                     <ul class="pagination" v-if="totalPage > 1">
                         <li><a @click="pagePre()">&laquo;</a></li>
                         <li v-for="index in totalPage" :class="[index == nowPage? 'active':'']">
@@ -167,6 +175,56 @@
 
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="share-modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="share-modal">分享文件</h4>
+                    <button type="button" class="close" data-dismiss="modal" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div v-show="shareSelect" class="col-lg-offset-3">
+                        <input type="radio" name="share-type" value="encrypt"/>
+                        <b>加密</b>
+                        仅限拥有密码者可查看，更加隐私安全
+                        <br>
+                        <input type="radio" name="share-type" value="public"/>
+                        <b>公开</b>
+                        任何人可查看或下载
+                        <br>
+
+                        有效期：
+                        <select id="shareTime">
+                            <option value="forever">永久有效</option>
+                            <option value="seven">7天</option>
+                            <option value="one">1天</option>
+                        </select>
+                        <br>
+                    </div>
+                    <span v-show="link">
+                        <div class="form-group">
+                         <div class="input-group col-md-6">
+                            <input type="text" id="sh" class="form-control" :value="shareUrl" disabled/>
+                             <div class="input-group-addon" style="color:lightskyblue">{{ shareMsg }}</div>
+                         </div>
+                        </div>
+                         <br> {{ sharePass}}
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button v-show="shareSelect" type="button" class="btn btn-primary" @click="createUrl()">创建连接</button>
+                    <button type="button" @click="close" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script src="js/lib/vue.min.js"></script>

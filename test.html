@@ -1,10 +1,61 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <title>新建网页 1</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <link href="css/lightbox.css" rel="stylesheet" type="text/css"/>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+    <link href="css/my.css" rel="stylesheet">
+
+    <script src="js/lib/lightbox.js"></script>
 
 </head>
-<div id="id"></div>
+
 <body>
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="share-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="share-modal">分享文件</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <input type="radio" name="type"/>
+                加密仅限拥有密码者可查看，更加隐私安全
+                <br>
+                <input type="radio" name="type"/>
+                公开任何人可查看或下载
+                <br>
+                <p>有效期：</p>
+                <select>
+                    <option>永久有效</option>
+                    <option>7天</option>
+                    <option>1天</option>
+                </select>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">创建连接</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<button data-toggle="modal" data-target="#shareModal">button</button>
 </body>
 </html>

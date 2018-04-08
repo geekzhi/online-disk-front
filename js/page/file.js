@@ -167,6 +167,10 @@ new Vue({
         },
         hideMess: function () {
             this.show = false;
+        },
+        share: function (id) {
+            window.parent.$('#shareModal').modal('show');
+            sessionStorage.setItem("file-share", id);
         }
     }
 });

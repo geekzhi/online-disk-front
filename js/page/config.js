@@ -2,8 +2,6 @@ axios.defaults.headers.common['Authorization'] = (sessionStorage.getItem("Author
 axios.defaults.baseURL = "http://localhost:8080";
 axios.interceptors.request.use(
    function (config) {
-       $('#loading').show();
-       $('#myTabContent').hide();
        $('body').css("cursor","wait");
        return config;
    },
@@ -14,8 +12,6 @@ axios.interceptors.request.use(
 );
 axios.interceptors.response.use(
     function (config) {
-        $('#loading').hide();
-        $('#myTabContent').show();
         $('body').css("cursor","default");
         return config;
     },
