@@ -16,6 +16,7 @@ new Vue({
         var vm = this;
         vm.token = (sessionStorage.getItem("Authorization") == null) ? localStorage.getItem("Authorization") : sessionStorage.getItem("Authorization");
         axios.post('/file/shareDownload', Qs.stringify({'code': location.href.split("?")[1].split('=')[1]})).then(function (value) {
+            console.log(value.data);
             if ('0000' == value.data.code) {
                 vm.verifyCode = value.data.data.verifyCode;
                 vm.fileName = value.data.data.fileName;
