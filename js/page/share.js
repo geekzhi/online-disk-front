@@ -10,7 +10,8 @@ new Vue({
         pass: '',
         msg: '',
         msgShow: false,
-        verifyCode: ''
+        verifyCode: '',
+        success: true
     },
     created: function () {
         var vm = this;
@@ -32,6 +33,9 @@ new Vue({
                     }
                     ;
                 }
+            } else {
+                vm.msg = value.data.msg;
+                vm.success = false;
             }
         })
 
