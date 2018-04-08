@@ -5,7 +5,12 @@ new Vue({
         nowType: '',
         nowPage: 0,
         totalPage: 0,
-        token: ''
+        token: '',
+        shareSelect: true,
+        link: false,
+        shareUrl: '',
+        sharePass: '',
+        shareMsg: ''
     },
     created: function () {
         var vm = this;
@@ -60,7 +65,36 @@ new Vue({
             var vm = this;
             sessionStorage.setItem("videopath", '/nginx/file/' + id + '?token=' + vm.token);
             window.open("video_player.html");
-        }
+        },
+        createUrl: function () {
+            var id = sessionStorage.getItem("file-share");
+            var shareTime = $('#shareTime').val();
+            var shareType = $("input[name='share-type']:checked").val();
+            var vm = this;
+            if('' == shareType || '' == shareTime){
+                alert("请选择");
+            }else{
+                if('forever' == shareTime) {vm.shareMsg = '链接永久有效'};
+                if('seven' == shareTime) {vm.shareMsg = '链接7天后失效'};
+                if('one' == shareTime) {vm.shareMsg = '链接1天后失效'};
+            axios.post('/file/share', Qs.stringify({'id':id, 'shareTime':shareTime, 'shareType':shareType})).then(function (value) {
+                vm.shareSelect = false;
+                if('0000' == value.data.code) {
+                    if('' == value.data.data.pass){
+                     vm.shareUrl = value.data.data.url;
+                    } else{
+                        vm.shareUrl = value.data.data.url;
+                        vm.sharePass = '提取密码：' + value.data.data.pass;
+                    }
+                    vm.link = true;
+                }
+            });
+            }
+        },
+        close: function () {
+            this.link = false;
+            this.shareSelect = true;
+        },
     }
 });
 
@@ -92,17 +126,12 @@ axios.post('/user/userInfo').then(function (value) {
 });
 
 $(function () {
-
-    $("[data-toggle='tooltip']").tooltip();
-
     $('#logout').click(function () {
         axios.get("/user/logout").then(function (value) {
             alert(value.data.msg);
             location.reload();
         });
     });
-
-
 });
 
 function fileload() {

@@ -14,13 +14,6 @@ a:hover{
 ul{
     list-style: none;
 }
-img{
-    width: 40px;
-    height: 40px;
-}
-/*.hover-pointer {*/
-    /*cursor: pointer;*/
-/*}*/
 .top-front:hover {
     cursor:pointer;
     color:gray;
@@ -31,7 +24,14 @@ img{
     color: ghostwhite;
 }
 .acolor {
-    color: black;
+    color: white;
     text-decoration: none;
+}
+
+.box{
+    height:500px;
+
+    -moz-box-shadow: 10px 10px 5px #888888; /* 老的 Firefox */
+    box-shadow: 10px 10px 30px #888888;
 }
 

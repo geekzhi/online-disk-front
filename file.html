@@ -149,7 +149,9 @@
             </a>
         </td>
         <td v-else>
-            <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
+            <a href="javascript:void(0)" title="分享" class="acolor" @click="share(file.id)" data-toggle="modal" data-target="#shareModal">
+                <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
+            </a>
             <a href="javascript:void(0)" class="acolor" @click="setRename(file.id, file.type)">
                 <span class="fa fa-refresh yincang" title="重命名" style="float:left" data-toggle="modal" data-target="#modifyModal"> &nbsp;&nbsp;</span>
             </a>
