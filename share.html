@@ -43,6 +43,10 @@
 
     <div class="box col-md-12">
         <br><br><br><br><br><br>
+        <div v-show="!success" >
+            <div class="alert alert-danger" role="alert">{{ msg }}</div>
+        </div>
+        <div v-show="success">
         <div v-show="!encrypt" class="col-md-6 col-lg-offset-2">
         {{ fileName }}
         <a :href="url" style="float:right;">
@@ -61,6 +65,7 @@
             <input type="text" class="form-control" v-model="pass" placeholder="请输入分享密码"/>
             <br>
             <button @click="confirm" class="btn btn-primary btn-lg">提取文件</button>
+        </div>
         </div>
     </div>
 </div>
