@@ -6,15 +6,27 @@ new Vue({
         nowPage: 0,
         totalPage: 0,
         token: '',
-        shareSelect: true,
-        link: false,
         shareUrl: '',
         sharePass: '',
-        shareMsg: ''
+        shareMsg: '',
+        usrPic: '',
+        usrName: '',
+        usrEmail: ''
     },
     created: function () {
         var vm = this;
         vm.token = (sessionStorage.getItem("Authorization") == null) ? localStorage.getItem("Authorization") : sessionStorage.getItem("Authorization");
+        axios.post('/user/userInfo').then(function (value) {
+            if (value.data.code == '0000'){
+                if(value.data.data.pic == '' ) {
+                   vm.usrPic = 'img/usr/default.png';
+                } else {
+                    vm.usrPic = value.data.data.pic;
+                };
+                vm.usrName = value.data.data.name;
+                vm.usrEmail = value.data.data.email;
+            } ;
+        });
     },
     methods: {
         getFileList: function (type) {
@@ -78,7 +90,6 @@ new Vue({
                 if('seven' == shareTime) {vm.shareMsg = '链接7天后失效'};
                 if('one' == shareTime) {vm.shareMsg = '链接1天后失效'};
             axios.post('/file/share', Qs.stringify({'id':id, 'shareTime':shareTime, 'shareType':shareType})).then(function (value) {
-                vm.shareSelect = false;
                 if('0000' == value.data.code) {
                     if('' == value.data.data.pass){
                      vm.shareUrl = value.data.data.url;
@@ -86,15 +97,11 @@ new Vue({
                         vm.shareUrl = value.data.data.url;
                         vm.sharePass = '提取密码：' + value.data.data.pass;
                     }
-                    vm.link = true;
                 }
             });
-            }
-        },
-        close: function () {
-            this.link = false;
-            this.shareSelect = true;
-        },
+            };
+            $('#confirm-link').modal('open');
+        }
     }
 });
 
@@ -119,7 +126,7 @@ axios.post('/user/userInfo').then(function (value) {
             }
         } else {
             $("#use-bar").addClass("progress-bar-success");
-        }
+        };
     }
 }).catch(function (reason) {
     location.href = 'login.html';
@@ -138,4 +145,5 @@ function fileload() {
     $('#loading').hide();
     $('#myTabContent').show();
 }
+
 
