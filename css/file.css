@@ -28,3 +28,7 @@ ul {
 .line:hover {
     background-color:whitesmoke;
 }
+
+[v-cloak] {
+    display: none;
+}

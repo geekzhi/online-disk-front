@@ -169,7 +169,8 @@ new Vue({
             this.show = false;
         },
         share: function (id) {
-            window.parent.$('#shareModal').modal('show');
+            window.parent.$('#shareModal').modal({closeViaDimmer:false});
+            window.parent.$('#shareModal').modal('open');
             sessionStorage.setItem("file-share", id);
         }
     }

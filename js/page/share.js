@@ -11,7 +11,10 @@ new Vue({
         msg: '',
         msgShow: false,
         verifyCode: '',
-        success: true
+        success: true,
+        avatar: '',
+        userName: '',
+        usrPic: ''
     },
     created: function () {
         var vm = this;
@@ -30,8 +33,9 @@ new Vue({
                         vm.shareValid = "永久有效";
                     } else {
                         vm.shareValid = value.data.data.valid + "天内有效";
-                    }
-                    ;
+                    };
+                    vm.avatar = value.data.data.avatar;
+                    vm.userName = value.data.data.userName;
                 }
             } else {
                 vm.msg = value.data.msg;
@@ -58,8 +62,9 @@ new Vue({
                         vm.shareValid = "永久有效";
                     } else {
                         vm.shareValid = value.data.data.valid + "天内有效";
-                    }
-                    ;
+                    };
+                    vm.avatar = value.data.data.avatar;
+                    vm.userName = value.data.data.userName;
                 } else {
                     vm.msg = value.data.msg;
                     vm.msgShow = true;
@@ -78,7 +83,14 @@ axios.post('/user/userInfo').then(function (value) {
         $('#username').html(value.data.data.name);
         if (value.data.data.vip == '1') {
             $('#username').css("color", "orange");
+        };
+        var pic;
+        if('' == value.data.data.pic){
+            pic = 'img/usr/default.png';
+        } else {
+            pic = value.data.data.pic;
         }
+        $('#usrpic').attr('src', pic);
     }
 }).catch(function (reason) {
     location.href = 'login.html';

@@ -31,7 +31,7 @@
                 theme: 'fa',
                 language: 'zh',
                 uploadUrl: 'http://localhost:8080/file/upload',
-                allowedFileExtensions: ['jpg', 'png', 'gif'],
+                // allowedFileExtensions: ['jpg', 'png', 'gif'],
                 uploadExtraData: {"token":(sessionStorage.getItem("Authorization") == null)?localStorage.getItem("Authorization"):sessionStorage.getItem("Authorization")}
             });
         </script>
