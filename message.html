@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <link href="css/message.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+    <script src="js/lib/amazeui.min.js" charset="utf-8"></script>
+
+
+    <script type="text/javascript" src="js/lib/goeasy.js"></script>
+
+
+</head>
+<body>
+<div v-cloak class="container" id="message">
+    <div class="col-md-12 column">
+
+        <div class="jumbotron row" id="user-jum">
+            <ul class="left-ul">
+
+                <li><p class="top-front"><a href="login.html" class="acolor top-front">首页</a></p></li>
+                <li><p class="top-front" id="logout"> 登出</p></li>
+
+            </ul>
+            <ul class="right-ul">
+                <li>
+                    <button class="btn btn-warning btn-sm">会员中心</button>
+                </li>
+                <li>
+                    <p><a href="notice.html" style="color:white">通知</a></p>
+                </li>
+                <li>
+                    <p><a href="message.html" style="color:white">消息</a></p>
+                </li>
+                <li><p  class="top-front" id="username" style="font-size:25px;"></p></li>
+                <li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div style="height: 500px" class="box">
+            <div class="col-md-4">
+                <br>
+                <div class="col-md-12">
+                    <ul class="am-nav am-nav-tabs am-nav-justify">
+                        <li class="am-active" id="friend"><a href="#"><i class="fa fa-vcard"></i>&nbsp;好友</a></li>
+                    </ul>
+
+                </div>
+                <hr style="width: 100%;">
+                <div class="col-md-12">
+                    <ul class="user-list">
+                        <li v-for="(u,index) in friends" @click="showMess(index)">
+                            <img :src="u.pic" class="title-avatar"> {{ u.name}} </img>
+                            <span v-show="u.unread != 0" class="am-badge am-badge-danger">{{ u.unread }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <button @click="addFriend" class="col-md-12 am-btn am-btn-default" style="margin-bottom: 10px;">添加好友</button>
+            </div>
+
+            <div v-show="openMessage" class="col-md-7">
+                <div style="height: 500px; border-left: 8px solid whitesmoke">
+                    <div class="col-md-12 col-lg-offset-1" style="text-align: center; background-color: lightgrey">
+                        {{ f.name }}
+                    </div>
+                    <div class="col-md-12 col-lg-offset-1">
+                        <div style="height: 400px;width: 550px;">
+                            <!--<textarea v-model="dataMess" disabled rows="15" style="border-style:none;resize:none;width: 550px;" id="f-text">-->
+
+                            <!--</textarea>-->
+                            <iframe disabled  src="mess.html" style="width: 500px; height: 390px"  id="f-text">
+
+                            </iframe>
+                        </div>
+                        <div id="send-text" class="input-group">
+                            <input @click="cancelDanger" type="text" class="form-control" v-model="messText" placeholder="输入文字消息">
+                            <span class="input-group-btn">
+                                <button @click="sendMess" class="btn btn-primary" type="button">发送</button>
+                         </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-alert"  id="content-alert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-bd">
+                文字内容违规！
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-alert"  id="friend-alert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-bd">
+               {{ alertContent }}
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-alert"  id="add-friend">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                添加好友
+            </div>
+            <div class="am-modal-bd">
+               <input class="form-control" v-model="addFriendName" placeholder="输入用户名或邮箱进行搜索"/>
+            </div>
+            <div class="am-modal-footer">
+                <span @click="confirmFriend" class="am-modal-btn">确定</span>
+                <span class="am-modal-btn">取消</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="js/lib/vue.min.js"></script>
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script src="js/page/message.js"></script>
+</body>
+</html>
