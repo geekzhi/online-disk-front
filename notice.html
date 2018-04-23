@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通知</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="css/amazeui.min.css"/>
+
+    <link rel="stylesheet" href="css/notice.css"/>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+    <script src="js/lib/amazeui.min.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div v-cloak class="container" id="notice">
+    <div class="col-md-12 column">
+
+        <div class="jumbotron row" id="user-jum">
+            <ul class="left-ul">
+
+                <li><p class="top-front"><a href="my.html" class="acolor top-front">首页</a></p></li>
+                <li><p class="top-front" id="logout"> 登出</p></li>
+
+            </ul>
+            <ul class="right-ul">
+                <li>
+                    <button class="btn btn-warning btn-sm">会员中心</button>
+                </li>
+                <li>
+                    <p><a href="notice.html" style="color:white">通知</a></p>
+                </li>
+                <li>
+                    <p><a href="message.html" style="color:white">消息</a></p>
+                </li>
+                <li><p  class="top-front" id="username" style="font-size:25px;"></p></li>
+                <li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <ul class="am-nav am-nav-tabs">
+            <li class="am-active" id="sys-li"><a href="javascript:void(0)" @click="showSystem">系统通知</a></li>
+            <li id="fri-li"><a href="javascript:void(0)" @click="showFriend">好友通知</a></li>
+        </ul>
+    </div>
+    <div>
+
+        <div v-show="systemShow">
+
+        </div>
+
+        <div v-show="friendShow">
+            <ul >
+                <li class="col-md-12 li-hover" v-for="u in unreadFriendList">
+                    <img style="float:left" v-if="u.pic != ''" :src="u.pic"/>
+                    <img style="float:left" v-else src="img/usr/default.png"/>
+                    <p style="float:left">{{ u.name }}</p>
+                    <button @click="disagree(u.id)" style="float:right" class="am-btn">取消</button>
+                    <span style="float:right;">&nbsp;</span>
+                    <button @click="agree(u.id)" style="float:right" class="am-btn">同意</button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<script src="js/lib/vue.min.js"></script>
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script src="js/page/notice.js"></script>
+</body>
+</html>

@@ -11,7 +11,19 @@ new Vue({
         shareMsg: '',
         usrPic: '',
         usrName: '',
-        usrEmail: ''
+        usrEmail: '',
+        changeAlert: '',
+        newName: '',
+        newPass: '',
+        repeatNewPass: '',
+        oldPass: '',
+        newEmail: '',
+        newEmailVerify: '',
+        emailWrong: false,
+        isTrash: false,
+        trashAlert: '',
+        trashAll: false
+
     },
     created: function () {
         var vm = this;
@@ -31,6 +43,11 @@ new Vue({
     methods: {
         getFileList: function (type) {
             var vm = this;
+            if('trash' == type) {
+                vm.isTrash = true;
+            } else {
+                vm.isTrash = false;
+            }
             axios.get('/file/fileList/' + type + '/1').then(function (value) {
                 vm.fileList = [];
                 if (!(value.data == '')) {
@@ -101,7 +118,118 @@ new Vue({
             });
             };
             $('#confirm-link').modal('open');
+        },
+        change: function (type) {
+            var vm = this;
+            if('name' == type) {
+               $('#change-uname').modal('open');
+            } else if ('email' == type) {
+                vm.emailWrong = false;
+                $('#change-email').modal({closeOnConfirm :false});
+            } else if ('pass' == type) {
+                $('#change-pass').modal('open');
+            }
+        },
+        confirmChange: function(type) {
+            var vm = this;
+            if('name' == type) {
+                axios.put('/user/name/' + vm.newName).then(function (value) {
+                        vm.changeAlert = value.data.msg;
+                        $('#change-alert').modal('open');
+                })
+            } else if ('pass' == type){
+                if(vm.newPass != vm.repeatNewPass) {
+                    vm.changeAlert = '两次输入密码不一致';
+                    $('#change-alert').modal('open');
+                } else {
+                    axios.put('/user/pass/' + vm.oldPass + '/' + vm.newPass).then(function (value) {
+                        vm.changeAlert = value.data.msg;
+                        $('#change-alert').modal('open');
+                    })
+                }
+            } else if('email' == type) {
+                axios.post('/user/newEmail',Qs.stringify({'email': vm.newEmail, 'code' : vm.newEmailVerify})).then(function (value) {
+                    if('0000' == value.data.code) {
+                        vm.changeAlert = value.data.msg;
+                        $('#change-email').modal('close');
+                        $('#change-alert').modal('open');
+                    } else {
+                        vm.changeAlert = value.data.msg;
+                        vm.emailWrong = true;
+
+                    }
+                })
+            }
+        },
+        clearInput: function () {
+            var vm = this;
+            if(vm.changeAlert == '成功') {
+                location.reload();
+            } else {
+                vm.newName = '';
+                vm.oldPass = '';
+                vm.newPass = '';
+                vm.repeatNewPass = '';
+                vm.newEmail = '';
+                vm.newEmailVerify = '';
+            }
+        },
+        sendVerify: function () {
+            var vm = this;
+            axios.post("/verifyCode", Qs.stringify({'email' : vm.newEmail})).then(function (value) {
+                if('0000' != value.data.code) {
+                    vm.changeAlert = value.data.msg;
+                    vm.emailWrong = true;
+                } else {
+                    vm.emailWrong = false;
+                    vm.changeAlert = value.data.msg;
+                    document.getElementById('send-btn').innerHTML = '已发送验证码';
+                    document.getElementById('send-btn').disabled =  true;
+                }
+            })
+        },
+        choseTrash: function () {
+            var vm = this;
+            var data = new Array() ;
+            $("[name='chose-trash']:checked").each(function (index, element) {
+                data.push($(element).val());
+            });
+            vm.trashAll = false;
+            if(data.length > 0) {
+            axios.put('/file/recover', Qs.stringify({'id' : data.toString()})).then(function (value) {
+                    vm.trashAlert = value.data.msg;
+            })
+            } else {
+                vm.trashAlert = '先选择要删除的文件！';
+            }
+            $('#trash-alert').modal('open');
+        },
+        choseAll: function () {
+            if ($("[name='total-trash']").is(":checked")) {
+                $("[name='chose-trash']").prop("checked", true);
+            } else {
+                $("[name='chose-trash']").prop("checked", false);
+            }
+        },
+        confirmTrash: function () {
+            var vm = this;
+            if(vm.trashAlert == '成功') {
+                location.reload();
+            }
+
+        },
+        confirmTrashAll: function () {
+            axios.put('/file/recoverAll').then(function (value) {
+                location.reload();
+            })
+        },
+        allTrash: function () {
+            var vm = this;
+            vm.trashAll = true;
+            vm.trashAlert = '确认清空回收站？'
+            $('#trash-alert').modal('open');
         }
+
     }
 });
 
@@ -139,11 +267,47 @@ $(function () {
             location.reload();
         });
     });
+
+    axios.get("/file/statistics").then(function (value) {
+        if('0000' == value.data.code) {
+            var ch = value.data.data;
+            echarts.init(document.getElementById('numStatistics')).setOption({
+                title: {
+                    text: '文件数量统计',
+                    left:'center'
+                },
+                series: {
+                    name: '文件类型',
+                    type: 'pie',
+                    data: ch[0]
+                },
+                tooltip : {
+                    formatter: "{b} : {c}"
+                }
+            });
+            echarts.init(document.getElementById('sizeStatistics')).setOption({
+                title: {
+                    text: '空间使用情况',
+                    left: 'center'
+                },
+                series: {
+                    name: '使用空间',
+                    type: 'pie',
+                    data:ch[1]
+                },
+                tooltip: {
+                    formatter: "{b} : {d}%"
+                }
+            });
+        }
+    })
 });
 
 function fileload() {
     $('#loading').hide();
     $('#myTabContent').show();
 }
+
+
 
 

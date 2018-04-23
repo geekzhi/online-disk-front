@@ -14,13 +14,16 @@ new Vue({
         success: true,
         avatar: '',
         userName: '',
-        usrPic: ''
+        usrPic: '',
+        id: '',
+        follower: true,
+        followShow: false,
+        load: true
     },
     created: function () {
         var vm = this;
         vm.token = (sessionStorage.getItem("Authorization") == null) ? localStorage.getItem("Authorization") : sessionStorage.getItem("Authorization");
         axios.post('/file/shareDownload', Qs.stringify({'code': location.href.split("?")[1].split('=')[1]})).then(function (value) {
-            console.log(value.data);
             if ('0000' == value.data.code) {
                 vm.verifyCode = value.data.data.verifyCode;
                 vm.fileName = value.data.data.fileName;
@@ -36,12 +39,22 @@ new Vue({
                     };
                     vm.avatar = value.data.data.avatar;
                     vm.userName = value.data.data.userName;
+                    vm.id = value.data.data.id;
+                    if(value.data.data.self == 'false') {
+                        vm.followShow = true;
+                        if(value.data.data.follow == 'true') {
+                            vm.follower = false;
+                        }
+                    } else {
+                        vm.followShow = false;
+                    }
                 }
             } else {
                 vm.msg = value.data.msg;
                 vm.success = false;
-            }
-        })
+            };
+            vm.load = false;
+        });
 
     },
     methods: {
@@ -65,12 +78,31 @@ new Vue({
                     };
                     vm.avatar = value.data.data.avatar;
                     vm.userName = value.data.data.userName;
+                    vm.id = value.data.data.id;
+                    if(value.data.data.self == 'false') {
+                        vm.followShow = true;
+                        if(value.data.data.follow == 'true') {
+                            vm.follower = false;
+                        }
+                    } else {
+                        vm.followShow = false;
+                    }
                 } else {
                     vm.msg = value.data.msg;
                     vm.msgShow = true;
                 }
             })
 
+        },
+        follow: function () {
+            var vm = this;
+            axios.post('/user/follow/' + vm.id).then(function (value) {
+                if('0000' == value.data.code){
+                    vm.follower = false;
+                } else {
+                    vm.follower = true;
+                }
+            });
         }
     }
 });
@@ -102,5 +134,12 @@ $(function () {
             alert(value.data.msg);
             location.reload();
         });
+    });
+    $('.already-follow').hover(function () {
+        $('.already-follow').html('取消关注');
+        $('.already-follow').attr('class','am-btn am-btn-secondary am-round already-follow');
+    },function () {
+        $('.already-follow').html('已关注');
+        $('.already-follow').attr('class','am-btn am-btn-default am-round already-follow');
     });
 });

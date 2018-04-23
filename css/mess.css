@@ -1,0 +1,16 @@
+img {
+    width: 20px;
+    height: 20px;
+}
+
+.left-ul li{
+    float:left;
+}
+
+.right-ul li{
+    float:right;
+}
+
+ul{
+    list-style: none;
+}

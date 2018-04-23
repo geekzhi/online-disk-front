@@ -1,0 +1,39 @@
+a:hover{
+    cursor: pointer;
+    color: dodgerblue;
+    text-decoration: none;
+}
+.left-ul li{
+    float:left;
+    margin-left: 10px;
+}
+.right-ul li{
+    float:right;
+    margin-right: 10px;
+}
+ul{
+    list-style: none;
+}
+.top-front:hover {
+    cursor:pointer;
+    color:gray;
+}
+.jumbotron {
+    background-image: url("../img/bgimg.jpeg");
+    background-size: 100%;
+    color: ghostwhite;
+}
+.acolor {
+    color: white;
+    text-decoration: none;
+}
+
+.title-avatar{
+    width: 40px;
+    height: 40px;
+}
+
+img {
+    width: 40px;
+    height: 40px;
+}
