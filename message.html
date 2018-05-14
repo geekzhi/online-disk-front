@@ -21,38 +21,90 @@
     <script src="js/lib/amazeui.min.js" charset="utf-8"></script>
 
 
-    <script type="text/javascript" src="js/lib/goeasy.js"></script>
+    <script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
 
 
 </head>
 <body>
 <div v-cloak class="container" id="message">
-    <div class="col-md-12 column">
+    <!--<div class="col-md-12 column">-->
 
-        <div class="jumbotron row" id="user-jum">
-            <ul class="left-ul">
+        <!--<div class="jumbotron row" id="user-jum">-->
+            <!--<ul class="left-ul">-->
 
-                <li><p class="top-front"><a href="login.html" class="acolor top-front">首页</a></p></li>
-                <li><p class="top-front" id="logout"> 登出</p></li>
+                <!--<li><p class="top-front"><a href="login.html" class="acolor top-front">首页</a></p></li>-->
+                <!--<li><p class="top-front" id="logout"> 登出</p></li>-->
 
+            <!--</ul>-->
+            <!--<ul class="right-ul">-->
+                <!--<li>-->
+                    <!--<button class="btn btn-warning btn-sm">会员中心</button>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<p><a href="notice.html" style="color:white">通知</a></p>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<p><a href="message.html" style="color:white">消息</a></p>-->
+                <!--</li>-->
+                <!--<li><p  class="top-front" id="username" style="font-size:25px;"></p></li>-->
+                <!--<li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+    <header class="am-topbar am-topbar-inverse">
+        <h1 class="am-topbar-brand">
+            <a href="my.html" class="am-text-ir"></a>
+        </h1>
+
+        <!--<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>-->
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="my.html">首页</a></li>
+                <li class="am-active"><a href="message.html">好友</a></li>
             </ul>
-            <ul class="right-ul">
-                <li>
-                    <button class="btn btn-warning btn-sm">会员中心</button>
-                </li>
-                <li>
-                    <p><a href="notice.html" style="color:white">通知</a></p>
-                </li>
-                <li>
-                    <p><a href="message.html" style="color:white">消息</a></p>
-                </li>
-                <li><p  class="top-front" id="username" style="font-size:25px;"></p></li>
-                <li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>
-            </ul>
+
+
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><a id="u-notice" href="notice.html">
+                        <i class="fa fa-bell span" style="margin-top:15px"></i>
+                        <i id="notice-tip"></i>
+                    </a> </li>
+                    <li><button class="am-btn am-btn-warning am-round am-topbar-btn am-btn-sm"> <a href="vip.html">会员中心</a> </button> </li>
+                </ul>
+            </div>
+
+            <div class="am-topbar-right">
+                <img class="img-circle img-responsive upic" id="uvip" src="img/vip-on.png"/>
+            </div>
+
+            <div class="am-topbar-right">
+                <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+
+                    <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle>
+                        <i id="username"></i>
+                        <span class="am-icon-caret-down" ></span>
+                    </button>
+                    <!--<ul class="am-dropdown-content">-->
+                        <!--<li><a href="#info" data-toggle="tab">个人资料</a></li>-->
+                        <!--<li><a href="#use" data-toggle="tab">存储情况</a></li>-->
+                        <!--<li><a  data-am-modal="{target: '#logout-alert'}">退出</a></li>-->
+                    <!--</ul>-->
+                </div>
+            </div>
+
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><img class="img-circle img-responsive upic" id="usrpic"/></li>
+                </ul>
+
+            </div>
+
         </div>
-    </div>
+    </header>
     <div class="col-md-12">
-        <div style="height: 500px" class="box">
+        <div style="height: 600px" class="box">
             <div class="col-md-4">
                 <br>
                 <div class="col-md-12">
@@ -74,16 +126,16 @@
             </div>
 
             <div v-show="openMessage" class="col-md-7">
-                <div style="height: 500px; border-left: 8px solid whitesmoke">
+                <div style="height: 600px; border-left: 8px solid whitesmoke">
                     <div class="col-md-12 col-lg-offset-1" style="text-align: center; background-color: lightgrey">
                         {{ f.name }}
                     </div>
                     <div class="col-md-12 col-lg-offset-1">
-                        <div style="height: 400px;width: 550px;">
+                        <div style="height: 500px;width: 550px;">
                             <!--<textarea v-model="dataMess" disabled rows="15" style="border-style:none;resize:none;width: 550px;" id="f-text">-->
 
                             <!--</textarea>-->
-                            <iframe disabled  src="mess.html" style="width: 500px; height: 390px"  id="f-text">
+                            <iframe disabled  src="mess.html" style="width: 500px; height: 490px"  id="f-text">
 
                             </iframe>
                         </div>

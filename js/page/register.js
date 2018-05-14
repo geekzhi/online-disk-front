@@ -27,6 +27,9 @@ $(function () {
                 })).then(function (value) {
                     $('#msg').html(value.data.msg);
                     $('#note').show();
+                    if(value.data.code == '0000') {
+                        location.href="login.html";
+                    }
                 })
             } else {
                 $('#msg').html("两次密码输入不一致");

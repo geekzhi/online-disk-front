@@ -17,14 +17,14 @@
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lib/goeasy.js"></script>
+    <script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
 
 
 </head>
 <body>
 
     <p style="color:grey;font-size: 10px; text-align: center"><i>聊天记录只保留7天</i></p>
-    <div id="mess" v-html="content">
+    <div onload="sc" id="mess" v-html="content">
 
     </div>
 <br><br>
@@ -78,10 +78,10 @@
 
                 }
             });
+            vm.sc();
             var goEasy = new GoEasy({
                 appkey: 'BC-32b77fa9021a4b7784c92c86f55a300b'
             });
-
             goEasy.subscribe({
                 channel: 'chat',
                 onMessage: function(message){
@@ -96,16 +96,22 @@
                     }
                 }
             });
-            vm.sc();
+
         },
         methods: {
             sc: function () {
-                window.scrollTo(0,9999999);
+                window.scrollTo(0, 9999999);
             }
-        }
+        },
+        updated:function(){
+            this.sc();
+        },
     });
     $(function () {
         window.scrollTo(0,9999999);
+        var goEasy = new GoEasy({
+            appkey: 'BC-32b77fa9021a4b7784c92c86f55a300b'
+        });
     })
 </script>
 </html>

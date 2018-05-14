@@ -23,30 +23,87 @@
 </head>
 <body>
 <div v-cloak class="container" id="notice">
-    <div class="col-md-12 column">
+    <!--<div class="col-md-12 column">-->
 
-        <div class="jumbotron row" id="user-jum">
-            <ul class="left-ul">
+    <!--<div class="jumbotron row" id="user-jum">-->
+    <!--<ul class="left-ul">-->
 
-                <li><p class="top-front"><a href="my.html" class="acolor top-front">首页</a></p></li>
-                <li><p class="top-front" id="logout"> 登出</p></li>
+    <!--<li><p class="top-front"><a href="my.html" class="acolor top-front">首页</a></p></li>-->
+    <!--<li><p class="top-front" id="logout"> 登出</p></li>-->
 
+    <!--</ul>-->
+    <!--<ul class="right-ul">-->
+    <!--<li>-->
+    <!--<button class="btn btn-warning btn-sm">会员中心</button>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<p><a href="notice.html" style="color:white">通知</a></p>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<p><a href="message.html" style="color:white">消息</a></p>-->
+    <!--</li>-->
+    <!--<li><p  class="top-front" id="username" style="font-size:25px;"></p></li>-->
+    <!--<li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <header class="am-topbar am-topbar-inverse">
+        <h1 class="am-topbar-brand">
+            <a href="my.html" class="am-text-ir"></a>
+        </h1>
+
+        <!--<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>-->
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="my.html">首页</a></li>
+                <li><a href="message.html">好友</a></li>
             </ul>
-            <ul class="right-ul">
-                <li>
-                    <button class="btn btn-warning btn-sm">会员中心</button>
-                </li>
-                <li>
-                    <p><a href="notice.html" style="color:white">通知</a></p>
-                </li>
-                <li>
-                    <p><a href="message.html" style="color:white">消息</a></p>
-                </li>
-                <li><p  class="top-front" id="username" style="font-size:25px;"></p></li>
-                <li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>
-            </ul>
+
+
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li class="am-active"><a href="notice.html" id="u-notice">
+                        <i class="fa fa-bell span" style="margin-top:15px"></i>
+                        <i id="notice-tip"></i>
+                    </a></li>
+                    <li>
+                        <button class="am-btn am-btn-warning am-round am-topbar-btn am-btn-sm"><a
+                                href="vip.html">会员中心</a></button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="am-topbar-right">
+                <img class="img-circle img-responsive upic" id="uvip"/>
+            </div>
+
+            <div class="am-topbar-right">
+                <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+
+                    <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-dropdown-toggle"
+                            data-am-dropdown-toggle>
+                        <i id="username"></i>
+                        <span class="am-icon-caret-down"></span>
+                    </button>
+                    <!--<ul class="am-dropdown-content">-->
+                    <!--<li><a href="#info" data-toggle="tab">个人资料</a></li>-->
+                    <!--<li><a href="#use" data-toggle="tab">存储情况</a></li>-->
+                    <!--<li><a  data-am-modal="{target: '#logout-alert'}">退出</a></li>-->
+                    <!--</ul>-->
+                </div>
+            </div>
+
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><img class="img-circle img-responsive upic" id="usrpic"/></li>
+                </ul>
+
+            </div>
+
         </div>
-    </div>
+    </header>
     <div>
         <ul class="am-nav am-nav-tabs">
             <li class="am-active" id="sys-li"><a href="javascript:void(0)" @click="showSystem">系统通知</a></li>
@@ -56,20 +113,61 @@
     <div>
 
         <div v-show="systemShow">
-
+            <br>
+            <!--<p v-for="n in sysList"> {{ n.msg }}</p>-->
+            <div v-for="n in sysList" class="am-panel am-panel-secondary">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">管理员</h3>
+                </header>
+                <div class="am-panel-bd">
+                    {{ n.msg }}
+                </div>
+            </div>
         </div>
 
         <div v-show="friendShow">
-            <ul >
-                <li class="col-md-12 li-hover" v-for="u in unreadFriendList">
-                    <img style="float:left" v-if="u.pic != ''" :src="u.pic"/>
-                    <img style="float:left" v-else src="img/usr/default.png"/>
-                    <p style="float:left">{{ u.name }}</p>
-                    <button @click="disagree(u.id)" style="float:right" class="am-btn">取消</button>
-                    <span style="float:right;">&nbsp;</span>
-                    <button @click="agree(u.id)" style="float:right" class="am-btn">同意</button>
+            <ul>
+                <li class="col-md-12 li-hover" v-for="u in receiveList">
+                    <div v-if="u.pass !=1">
+                        <img style="float:left" v-if="u.pic != ''" :src="u.pic"/>
+                        <img style="float:left" v-else src="img/usr/default.png"/>
+                        <p style="float:left">{{ u.name }}</p>
+
+                        <div style="float:right" v-if="u.pass == 0">
+                            <button @click="disagree(u.id)" style="float:right" class="am-btn">拒绝</button>
+                            <span style="float:right;">&nbsp;</span>
+                            <button @click="agree(u.id)" style="float:right" class="am-btn">同意</button>
+                        </div>
+                        <!--<p v-if="u.pass == 1" style="float:right;color:darkgrey;"><i>已同意</i></p>-->
+                        <p v-if="u.pass == 2" style="float:right;color:darkgrey;"><i>您已拒绝了对方的好友申请</i></p>
+                    </div>
+                </li>
+                <li class="col-md-12 li-hover" v-for="u in sendList">
+                    <div v-if="u.pass !=1">
+                        <img style="float:left" v-if="u.pic != ''" :src="u.pic"/>
+                        <img style="float:left" v-else src="img/usr/default.png"/>
+                        <p style="float:left">{{ u.name }}</p>
+                        <span style="float:right;">&nbsp;</span>
+                        <!--<p v-if="u.pass == 1" style="float: right;color:darkgrey;"><i>您已添加对方为好友</i></p>-->
+                        <p v-if="u.pass == 0" style="float: right;color:darkgrey;"><i>您的好友申请已发送给对方</i></p>
+                        <p v-if="u.pass == 2" style="float: right;color:darkgrey;"><i>对方已拒绝</i></p>
+                    </div>
                 </li>
             </ul>
+        </div>
+
+        <div class="am-modal am-modal-alert" id="agree-friend">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">
+                    提示
+                </div>
+                <div class="am-modal-bd">
+                    成功添加好友！
+                </div>
+                <div class="am-modal-footer">
+                    <span onclick="location.reload()" class="am-modal-btn">确定</span>
+                </div>
+            </div>
         </div>
 
     </div>

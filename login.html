@@ -1,91 +1,139 @@
-
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>登录</title>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
 
 
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!--<link rel="shortcut icon" href="favicon.ico">-->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--<link rel="shortcut icon" href="favicon.ico">-->
 
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-	
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
-
-	<!-- Modernizr JS -->
-	<script src="js/lib/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-		<script src="js/lib/respond.min.js"></script>
-		<![endif]-->
-
-	</head>
-	<body class="style-3">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 col-md-push-4">
-					<br><br>
-					<img src="img/logo.png">
-					<!-- Start Sign In Form -->
-					<form class="fh5co-form animate-box" data-animate-effect="fadeInRight">
-						<h2>登录</h2>
-						<i>演示用户名：john 密码：123</i>
-						<div id="wrong" class="form-group" hidden>
-							<div id="login-msg" class="alert alert-danger" role="alert"></div>
-						</div>
-						<div class="form-group" onclick="hide()">
-							<label for="name" class="sr-only">username</label>
-							<input  type="text" class="form-control" id="name" placeholder="用户名" autocomplete="off">
-						</div>
-						<div class="form-group" onclick="hide()">
-							<label for="pass" class="sr-only">Password</label>
-							<input type="password" class="form-control" id="pass" placeholder="密码" autocomplete="off">
-						</div>
-						<div class="form-group">
-							<label for="remember"><input type="checkbox" id="remember"> 一周内免登录</label>
-						</div>
-						<div class="form-group">
-							<p>没有账号? <a href="register.html">注册一个</a> | <a href="forgot.html">忘记密码?</a></p>
-						</div>
-						<div class="form-group">
-							<input type="button" value="登录" class="btn btn-primary" id="login">
-						</div>
-					</form>
-					<!-- END Sign In Form -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/amazeui.min.css">
 
 
-				</div>
-			</div>
-
-		</div>
-
-	<!-- jQuery -->
-	<script src="js/lib/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/lib/bootstrap.min.js"></script>
-	<!-- Placeholder -->
-	<script src="js/lib/jquery.placeholder.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/lib/jquery.waypoints.min.js"></script>
-	<!-- Main JS -->
-	<script src="js/lib/main.js"></script>
+    <!-- Modernizr JS -->
+    <script src="js/lib/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/lib/respond.min.js"></script>
+    <![endif]-->
 
 
-		<script src="js/lib/axios.min.js"></script>
+</head>
+<body class="style-3">
+<div class="container">
 
-		<script src="js/lib/qs.js"></script>
+    <div class="row">
+        <div class="col-md-4 col-md-push-1">
+            <img src="img/cdisk-logo-black.png" style="width:100%; height: 100%; margin-top: 50%">
+            <p class="col-md-6 col-md-push-6" style="font-family: 'Weibei SC'; font-size: 15px">您的个人网络云盘</p>
+        </div>
+        <div class="col-md-4 col-md-push-5">
+            <br><br>
+            <!-- Start Sign In Form -->
+            <form class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+                <h2>登录</h2>
+                <i>演示用户名：john 密码：123</i>
+                <div id="wrong" class="form-group" hidden>
+                    <div id="login-msg" class="alert alert-danger" role="alert"></div>
+                </div>
+                <div class="form-group" onclick="hide()">
+                    <label for="name" class="sr-only">username</label>
+                    <input type="text" class="form-control" id="name" placeholder="用户名" autocomplete="off">
+                </div>
+                <div class="form-group" onclick="hide()">
+                    <label for="pass" class="sr-only">Password</label>
+                    <input type="password" class="form-control" id="pass" placeholder="密码" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="remember"><input type="checkbox" id="remember"> 一周内免登录</label>
+                </div>
+                <div class="form-group">
+                    <p>没有账号? <a href="register.html">注册一个</a> | <a href="forgot.html">忘记密码?</a></p>
+                </div>
 
-		<script src="js/page/config.js"></script>
+                <div class="form-group">
+                    <input type="button" value="登录" class="btn btn-primary" id="login">
+                </div>
+                <div class="form-group">
+                    <p><i><a href="javascript:void(0)" id="face-login">试试人脸登录？</a></i></p>
+                </div>
+            </form>
+            <!-- END Sign In Form -->
+            <div class="am-modal am-modal-confirm" tabindex="-1" id="face-alert">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">人脸识别登录</div>
+                    <div class="am-modal-bd">
+                        <form class="form-inline">
+                        用户名：<input type="text" id="fname" autocomplete="off" class="form-control"/>
+                        </form>
+                        <br>
+                        <input type="button" id="open_cam" hidden title="开启摄像头" value="开启摄像头" onclick="getMedia();" /><br><br>
+                        <video style="width: 350px; height: 250px" autoplay="autoplay"></video>
+                        <input hidden id="take_cam" type="button" title="拍照" value="拍照" onclick="getPhoto();" /><br />
+                        <canvas hidden id="canvas1" width="350px" height="250px" ></canvas>
+                        <input hidden type="button" title="视频" value="视频" onclick="getVedio();" /><br />
+                        <canvas hidden id="canvas2" width="350px" height="250px"></canvas>
+                    </div>
+                    <div class="am-modal-footer">
+                        <span id="cam_login" class="am-modal-btn">拍照并登录</span>
 
-		<script src="js/page/login.js"></script>
-	</body>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="am-modal am-modal-confirm" tabindex="-1" id="alert">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">提示</div>
+                    <div class="am-modal-bd" id="alert-content">
+                    </div>
+                    <div class="am-modal-footer">
+                        <span class="am-modal-btn" onclick="location.reload()">确定</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="js/lib/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/lib/amazeui.min.js" charset="utf-8"></script>
+
+<!-- Placeholder -->
+<script src="js/lib/jquery.placeholder.min.js"></script>
+<!-- Waypoints -->
+<script src="js/lib/jquery.waypoints.min.js"></script>
+<!-- Main JS -->
+<script src="js/lib/main.js"></script>
+
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script src="js/page/login.js"></script>
+</body>
 </html>
 
