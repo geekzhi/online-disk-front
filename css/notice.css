@@ -37,3 +37,38 @@ img {
     width: 40px;
     height: 40px;
 }
+
+[v-cloak] {
+    display: none;
+}
+
+.am-topbar .am-text-ir {
+    display: block;
+    margin-right: 10px;
+    height: 50px;
+    width: 125px;
+    background: url("../img/cdisk-logo-white.png") no-repeat left center;
+    -webkit-background-size: 125px 40px;
+    background-size: 125px 40px;
+}
+
+.upic {
+    display: block;
+    margin-right: 10px;
+    margin-top: 4px;
+    height: 40px;
+    width: 40px;
+    -webkit-background-size: 40px 40px;
+    background-size: 40px 40px;
+}
+
+.tip {
+    display:block;
+    background:#f00;
+    border-radius:50%;
+    width:8px;
+    height:8px;
+    top:10px;
+    right:3px;
+    position:absolute;
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIP</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <link href="css/vip.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+    <script src="js/lib/amazeui.min.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div v-cloak class="container" id="vip">
+    <header class="am-topbar am-topbar-inverse">
+        <h1 class="am-topbar-brand">
+            <a href="my.html" class="am-text-ir"></a>
+        </h1>
+
+        <!--<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>-->
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="my.html">首页</a></li>
+                <li><a href="message.html">好友</a></li>
+            </ul>
+
+
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><a id="u-notice" href="notice.html">
+                        <i class="fa fa-bell span" style="margin-top:15px"></i>
+                        <i id="notice-tip"></i>
+                    </a> </li>
+                    <li><button class="am-btn am-btn-warning am-round am-topbar-btn am-btn-sm am-active"> <a href="vip.html">会员中心</a> </button> </li>
+                </ul>
+            </div>
+
+            <div class="am-topbar-right">
+                <img class="img-circle img-responsive upic" id="uvip"/>
+            </div>
+
+            <div class="am-topbar-right">
+                <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+
+                    <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle>
+                        <i id="username"></i>
+                        <span class="am-icon-caret-down" ></span>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><img class="img-circle img-responsive upic" id="usrpic"/></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </header>
+    <div class="col-md-12 column">
+
+        <!--<div class="jumbotron row" id="user-jum">-->
+            <!--<ul class="left-ul">-->
+
+                <!--<li><p class="top-front"><a href="login.html" class="acolor top-front">首页</a></p></li>-->
+                <!--<li><p class="top-front" id="logout"> 登出</p></li>-->
+
+            <!--</ul>-->
+            <!--<ul class="right-ul">-->
+                <!--<li>-->
+                    <!--<button class="btn btn-warning btn-sm">会员中心</button>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<p><a href="notice.html" style="color:white">通知</a></p>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<p><a href="message.html" style="color:white">消息</a></p>-->
+                <!--</li>-->
+                <!--<li><p  class="top-front" id="username" style="font-size:25px;"></p></li>-->
+                <!--<li><img class="img-circle img-responsive title-avatar" id="usrpic"/></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div v-show="vip">
+            会员到期时间：{{ new Date(vipDate).toLocaleString() }}
+            <button class="am-btn am-btn-warning am-round" data-am-modal="{target: '#vip-modal'}"> 续费会员</button>
+        </div>
+        <br>
+        <div v-show="!vip" @click="picClick($event)" class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
+            <ul class="am-slides">
+                <li><img src="img/vip.png" id="p"/></li>
+            </ul>
+        </div>
+        <br>
+
+    </div>
+
+    <div class="am-modal am-modal-alert"  id="vip-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                选择开通时长
+            </div>
+            <div class="am-modal-bd">
+                <select data-am-selected id="time-select">
+                    <option value="1">1个月</option>
+                    <option value="3">3个月</option>
+                    <option value="6">6个月</option>
+                    <option value="12">12个月</option>
+                </select>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">取消</span>
+                <span @click="dealVip" class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+    <dic class="col-md-12">
+        <div class="col-md-12" style="text-align: center;">
+            <p style="font-family: 微软雅黑; font-size: 30px">更多容量扩充方式</p>
+        </div>
+
+        <div class="col-md-2" style="text-align: center;">
+            <img src="img/size15.jpg" class="img-rounded"/>
+            <br><br>
+            15G
+            <br><br>
+            <button @click="expand(15)" class="am-btn am-btn-secondary am-round">立即购买</button>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-2" style="text-align: center">
+            <img src="img/size30.jpg" class="img-rounded"/>
+            <br><br>
+            30G
+            <br><br>
+            <button @click="expand(30)" class="am-btn am-btn-secondary am-round">立即购买</button>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-2" style="text-align: center">
+            <img src="img/size60.jpg" class="img-rounded"/>
+            <br><br>
+            60G
+            <br><br>
+            <button @click="expand(60)" class="am-btn am-btn-secondary am-round">立即购买</button>
+        </div>
+    </dic>
+    <div class="am-modal am-modal-alert"  id="alert-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                提示
+            </div>
+            <div class="am-modal-bd">
+               <p>请确认是否完成支付</p>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" @click="confirmPay">我已完成支付</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-alert"  id="jump-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                提示
+            </div>
+            <div class="am-modal-bd">
+                {{ payAlert }}
+            </div>
+        </div>
+    </div>
+
+</div>
+<br><br><br><br><br><br><br>
+<script src="js/lib/vue.min.js"></script>
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script src="js/page/vip.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>交易信息</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="js/lib/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/lib/bootstrap.min.js"></script>
+
+    <script src="js/lib/amazeui.min.js" charset="utf-8"></script>
+</head>
+<body>
+<div v-cloak id="trade" style="position: absolute; top:300px; left:25%; width:50%; ">
+    <div v-show="success">
+        <div class="am-alert am-alert-success am-animation-scale-up" data-am-alert>
+            <p style="text-align: center;">交易成功,{{ seconds }}秒后返回主页</p>
+        </div>
+    </div>
+    <div v-show="fail">
+        <div class="am-alert am-alert-danger am-animation-scale-up" data-am-alert>
+            <p style="text-align: center;">交易失败,{{ seconds }}秒后返回主页</p>
+        </div>
+    </div>
+</div>
+<script src="js/lib/vue.min.js"></script>
+
+<script src="js/lib/axios.min.js"></script>
+
+<script src="js/lib/qs.js"></script>
+
+<script src="js/page/config.js"></script>
+
+<script>
+
+    new Vue({
+        el: '#trade',
+        data: {
+            message: '',
+            success: false,
+            fail: false,
+            seconds: '3'
+        },
+        created: function () {
+            var vm = this;
+            axios.get('/pay/info').then(function (value) {
+                if ('0000' == value.data.code) {
+                    vm.success = true;
+                } else {
+                    vm.fail = true;
+                }
+            }).catch(function (reason) {
+                vm.fail = true;
+            });
+            setTimeout(function () {
+                vm.seconds = '2';
+            }, 1000);
+            setTimeout(function () {
+                vm.seconds = '1';
+            }, 2000);
+            setTimeout(function () {
+                vm.seconds = '0';
+            }, 3000)
+        }
+    });
+
+    $(function () {
+        setTimeout(function (args) {
+            location.href = "my.html"
+        }, 3000);
+    })
+</script>
+</body>
+</html>

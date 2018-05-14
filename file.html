@@ -9,6 +9,8 @@
     <link href="themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/file.css" rel="stylesheet" type="text/css"/>
     <link href="css/lightbox.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/amazeui.min.css">
+
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/plugins/sortable.js" type="text/javascript"></script>
     <script src="js/fileinput.js" type="text/javascript"></script>
@@ -19,16 +21,119 @@
     <script src="js/lib/bootstrap.4.0.0.min.js" type="text/javascript"></script>
     <script src="js/page/jumpPage.js"></script>
     <script src="js/lib/lightbox.js"></script>
+    <script src="js/lib/amazeui.min.js" charset="utf-8"></script>
+    <script src="js/lib/spark-md5.js"></script>
+    <style>
+        h1,
+        h2 {
+            color: #888;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        h1 {
+            padding-top: 1.5em;
+            padding-bottom: 2em;
+        }
+
+        h2 {
+            clear: both;
+            color: #aaa;
+            padding: 2em 0 0.3em
+        }
+
+        em {
+            display: block;
+            margin: .5em auto 2em;
+            color: #bbb;
+        }
+
+        p,
+        p a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        p a:hover,
+        p a:focus {
+            text-decoration: underline;
+        }
+
+        p + p {
+            color: #bbb;
+            margin-top: 2em;
+        }
+
+        a[href*="intent"] {
+            display: inline-block;
+            margin-top: 0.4em;
+        }
+
+
+        /*
+                 * Rating styles
+                 */
+
+        .rating {
+            width: 226px;
+            margin: 0 auto 1em;
+            font-size: 45px;
+            overflow: hidden;
+        }
+
+        .rating input {
+            float: right;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .rating a,
+        .rating label {
+            float: right;
+            color: #aaa;
+            text-decoration: none;
+            -webkit-transition: color .4s;
+            -moz-transition: color .4s;
+            -o-transition: color .4s;
+            transition: color .4s;
+        }
+
+        .rating label:hover ~ label,
+        .rating input:focus ~ label,
+        .rating label:hover,
+        .rating a:hover,
+        .rating a:hover ~ a,
+        .rating a:focus,
+        .rating a:focus ~ a {
+            color: orange;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <br>
 <div v-cloak id="file" class="col-md-12">
-    <!-- Button trigger modal -->
-    <button type="button" id="uploadFile" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+    <div class="row">
+        <div class="am-u-md-6">
+    <button type="button" id="uploadFile" class="am-btn am-btn-primary am-radius" data-toggle="modal" data-target="#exampleModal">
         上传
     </button>
+
+    <button type="button" class="am-btn am-btn-primary am-radius" @click="newFolder()">新建文件夹</button>
+        </div>
+    <div class="am-u-md-6">
+    <div class="am-input-group am-input-group-primary">
+        <input type="text" class="am-form-field am-radius" v-model="searchFileName" placeholder="搜索文件">
+        <span class="am-input-group-btn">
+                <button @click="search" class="am-btn am-btn-primary am-radius" type="button"><span class="am-icon-search"></span></button>
+             </span>
+
+    </div>
+    </div>
+    </div>
+    <br>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" data-backdrop id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -49,7 +154,7 @@
 
     <!--删除文件提示模态框-->
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete-title" aria-hidden="true">
+    <div class="modal fade" data-backdrop id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="delete-title" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: aliceblue">
@@ -58,8 +163,13 @@
 
                 </div>
                 <div class="modal-body">
-                    确认要把所选文件放入回收站吗？
+                   <p v-show="!vip"> 确认要把所选文件放入回收站吗？ <br>
                     删除的文件可在10天内通过回收站还原
+                   </p>
+
+                    <p v-show="vip"> 确认要把所选文件放入回收站吗？<br>
+                        您是尊贵的VIP，删除的文件可在30天内通过回收站还原
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" @click="delete_file()">确定</button>
@@ -72,7 +182,7 @@
 
     <!--更改文件名提示模态框-->
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modify-title" aria-hidden="true">
+    <div class="modal fade" data-backdrop id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modify-title" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: aliceblue">
@@ -98,8 +208,38 @@
         </div><!-- /.modal -->
     </div>
 
-<button type="button" class="btn btn-info" @click="newFolder()">新建文件夹</button>
-<br><br>
+    <div class="modal fade" data-backdrop id="starModal" tabindex="-1" role="dialog" aria-labelledby="star-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: aliceblue">
+                    <h7 class="modal-title" id="star-title">文件评级</h7>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="rating">
+                    <!--
+                    -->      <input @click="star(5)" name="stars" id="e5" type="radio"></a><label for="e5">☆</label>
+                    <!--
+                          --><input @click="star(4)" name="stars" id="e4" type="radio"></a><label for="e4">☆</label>
+                    <!--
+                          --><input @click="star(3)" name="stars" id="e3" type="radio"></a><label for="e3">☆</label>
+                    <!--
+                          --><input @click="star(2)" name="stars" id="e2" type="radio"></a><label for="e2">☆</label>
+                    <!--
+                          --><input @click="star(1)" name="stars" id="e1" type="radio"></a><label for="e1">☆</label>
+                </div>
+
+                <div hidden class="modal-footer">
+                    <button type="button"  class="btn btn-primary">确定</button>
+                    <button type="button" id="starConfirm" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+
 <div class="row">
     <ul>
     <li><a class="acolor" href="javascript:void(0)" @click="goBackStepOne()">返回上一级</a></li>
@@ -118,6 +258,7 @@
         <th>文件名</th>
         <th></th>
         <th>大小</th>
+        <th>星级</th>
     </tr>
     </thead>
     <tbody>
@@ -149,11 +290,14 @@
             </a>
         </td>
         <td v-else>
-            <a href="javascript:void(0)" title="分享" class="acolor" @click="share(file.id)" data-toggle="modal" data-target="#shareModal">
+            <a href="javascript:void(0)" data-am-popover="{content: '想显示啥', trigger: 'hover'}" title="分享" class="acolor" @click="share(file.id)" data-toggle="modal" data-target="#shareModal">
                 <span class="fa fa-share-alt yincang" style="float:left">&nbsp;&nbsp;</span>
             </a>
             <a href="javascript:void(0)" class="acolor" @click="setRename(file.id, file.type)">
                 <span class="fa fa-refresh yincang" title="重命名" style="float:left" data-toggle="modal" data-target="#modifyModal"> &nbsp;&nbsp;</span>
+            </a>
+            <a href="javascript:void(0)" title="评级" @click="starFile(file.id)" data-toggle="modal" data-target="#starModal"  class="acolor">
+                <span class="fa fa-star yincang" style="float:left">&nbsp;</span>
             </a>
             <a title="下载" :href="'/nginx/file/' + file.id + '?token=' + token" :download="file.name" class="acolor">
                 <span class="fa fa-cloud-download yincang" style="float:left">&nbsp;&nbsp;
@@ -162,11 +306,21 @@
             <a href="javascript:void(0)" title="删除" @click="setDelete(file.id, file.type)"  data-toggle="modal" data-target="#deleteModal"  class="acolor">
              <span class="fa fa-trash yincang" style="float:left">&nbsp;&nbsp;</span>
             </a>
+
+
+
         </td>
         <td>
             <p v-if="file.size == null"></p>
             <p v-else-if="file.size < 10*1024" >{{ file.size }}KB</p>
             <p v-else>{{ Math.round(file.size/1024) }}M</p>
+        </td>
+        <td>
+            <i v-if="file.star > 0" class="fa fa-star"></i>
+            <i v-if="file.star > 1" class="fa fa-star"></i>
+            <i v-if="file.star > 2" class="fa fa-star"></i>
+            <i v-if="file.star > 3" class="fa fa-star"></i>
+            <i v-if="file.star > 4" class="fa fa-star"></i>
         </td>
     </tr>
     </tbody>

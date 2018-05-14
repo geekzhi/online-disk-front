@@ -21,7 +21,15 @@ new Vue({
                 $('#username').html(value.data.data.name);
                 if (value.data.data.vip == '1') {
                     $('#username').css("color", "orange");
+                    $('#uvip').attr("src","../img/vip-on.png");
+                } else {
+                    $('#uvip').attr("src","../img/vip-off.png");
                 };
+                if(value.data.data.notice == 0) {
+                    $('#notice-tip').attr("class", "");
+                } else {
+                    $('#notice-tip').attr("class", "tip");
+                }
                 var pic;
                 if('' == value.data.data.pic){
                     pic = 'img/usr/default.png';
@@ -88,12 +96,6 @@ new Vue({
             vm.f = vm.friends[index];
             sessionStorage.setItem('aimId', vm.f.id);
             sessionStorage.setItem('aimAvatar', vm.f.pic);
-            // axios.post('/mess/getMess', Qs.stringify({"aimId":vm.f.id})).then(function (value) {
-            //     if('0000' == value.data.code) {
-            //         vm.dataMess  = value.data.data;
-            //         console.log(vm.dataMess);
-            //     }
-            // });
             $('#f-text').attr('src',$('#f-text').attr('src'));
         },
         sendMess: function () {
@@ -168,6 +170,9 @@ $(function () {
         $('#friend').attr("class", "am-active");
     });
 
+    $('#u-notice').click(function () {
+        axios.put("/user/readNotice");
+    });
 
 });
 

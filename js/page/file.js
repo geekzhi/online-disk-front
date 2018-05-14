@@ -4,17 +4,28 @@ new Vue({
         fileList: [],
         upperPath: '',
         jumpFiles: [],
-        token:'',
-        deleteFile:'',
+        token: '',
+        deleteFile: '',
         renameId: '',
         renameType: '',
         newName: '',
         show: false,
         noticeMess: '',
-        suffixFolder: []
+        suffixFolder: [],
+        searchFileName: '',
+        vip: '',
+        starFileId: '',
+        starNum: ''
     },
     created: function () {
         var vm = this;
+        axios.post('/user/userInfo').then(function (value) {
+            if (value.data.data.vip == 1) {
+                vm.vip = true;
+            } else {
+                vm.vip = false;
+            }
+        });
         axios.post('/file/fileList/path', Qs.stringify({'parentPath': 'root'})).then(function (value) {
             vm.upperPath = '/';
             if (!(value.data == '')) {
@@ -23,7 +34,7 @@ new Vue({
                 }
             }
         });
-        vm.token = (sessionStorage.getItem("Authorization") == null)?localStorage.getItem("Authorization"):sessionStorage.getItem("Authorization");
+        vm.token = (sessionStorage.getItem("Authorization") == null) ? localStorage.getItem("Authorization") : sessionStorage.getItem("Authorization");
     },
     methods: {
         open: function (name, parentPath, type, suffixName) {
@@ -132,7 +143,7 @@ new Vue({
                 }
             });
         },
-        video:function (id) {
+        video: function (id) {
             var vm = this;
             sessionStorage.setItem("videopath", '/nginx/file/' + id + '?token=' + vm.token);
             window.open("video_player.html");
@@ -142,8 +153,8 @@ new Vue({
         },
         delete_file: function () {
             var file = this.deleteFile.split(',');
-            axios.post('/file/delete', Qs.stringify({'id':file[0], 'type':file[1]})).then(function (value) {
-                if('0000' == value.data.code) {
+            axios.post('/file/delete', Qs.stringify({'id': file[0], 'type': file[1]})).then(function (value) {
+                if ('0000' == value.data.code) {
                     console.log('删除成功');
                 }
                 location.reload();
@@ -160,7 +171,7 @@ new Vue({
             axios.put('/file/' + vm.renameId + '/' + vm.newName + '/' + vm.renameType).then(function (value) {
                 vm.noticeMess = value.data.msg;
                 vm.show = true;
-                if('0000' == value.data.code){
+                if ('0000' == value.data.code) {
                     location.reload();
                 }
             })
@@ -169,21 +180,49 @@ new Vue({
             this.show = false;
         },
         share: function (id) {
-            window.parent.$('#shareModal').modal({closeViaDimmer:false});
+            window.parent.$('#shareModal').modal({closeViaDimmer: false});
             window.parent.$('#shareModal').modal('open');
             sessionStorage.setItem("file-share", id);
+        },
+        search: function () {
+            var vm = this;
+            if (vm.searchFileName != '') {
+                axios.get('/file/search/' + vm.searchFileName).then(function (value) {
+                    if (!(value.data == '')) {
+                        vm.fileList = [];
+                        for (var i = 0; i < value.data.data.length; i++) {
+                            vm.fileList.push(value.data.data[i]);
+                        }
+                    }
+                })
+            }
+        },
+        starFile: function (id) {
+            this.starFileId = id;
+        },
+        star: function (level) {
+            var vm = this;
+            vm.starNum = level;
+            axios.put("/file/star", Qs.stringify({"id": vm.starFileId, "star": vm.starNum}));
+            $('#starConfirm').click();
+            location.reload();
         }
     }
 });
+var md5;
 $(function () {
 
     $("[data-toggle='tooltip']").tooltip();
     var batch;
-    $('#input-upfile').on('filepreajax', function(event, previewId, index) {
+    $('#input-upfile').on('filepreajax', function (event, previewId, index) {
         batch = {
             "parentPath": $("#upper").html(),
-            "token": (sessionStorage.getItem("Authorization") == null) ? localStorage.getItem("Authorization") : sessionStorage.getItem("Authorization")
+            "token": (sessionStorage.getItem("Authorization") == null) ? localStorage.getItem("Authorization") : sessionStorage.getItem("Authorization"),
+            "md5": md5
         };
+    });
+    $("#input-upfile").on("filebatchselected", function(event, files) {
+       getMd5(callBack);
     });
     $("#input-upfile").fileinput({
         theme: 'fa',
@@ -197,5 +236,38 @@ $(function () {
         }
     });
 
+    // $("#input-upfile").change(function () {
+    //     getMd5(callBack);
+    //     console.log(md5);
+    // })
+    function callBack(md) {
+        md5 = md;
+    }
+    function getMd5(callBack) {
+        var fileReader = new FileReader(),
+            blobSlice = File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice,
+            file = document.getElementById("input-upfile").files[0],
+            chunkSize = 2097152,
+            chunks = Math.ceil(file.size / chunkSize),
+            currentChunk = 0,
+            bs = fileReader.readAsBinaryString,
+            spark = bs ? new SparkMD5() : new SparkMD5.ArrayBuffer();
+
+        fileReader.onload = function (ee) {
+            spark.append(ee.target.result);
+            currentChunk++;
+            if (currentChunk < chunks) {
+                loadNext();
+            } else {
+                md5 = spark.end();
+            }
+        }
+        function loadNext() {
+            var start = currentChunk * chunkSize, end = start + chunkSize >= file.size ? file.size : start + chunkSize;
+            if (bs) fileReader.readAsBinaryString(blobSlice.call(file, start, end));
+            else fileReader.readAsArrayBuffer(blobSlice.call(file, start, end));
+        }
+        loadNext();
+    };
 
 });
